@@ -532,3 +532,54 @@
 </script>
 </body>
 </html>
+<style>
+    .ghost-mode-active {
+        background: #1a0000 !important; /* To'q qizil qora fon */
+        border-color: #ff0000 !important;
+        box-shadow: 0 0 40px rgba(255, 0, 0, 0.4) !important;
+    }
+    .ghost-mode-active h1, .ghost-mode-active .vault-value {
+        color: #ff3333 !important;
+        text-shadow: 0 0 20px #ff0000;
+    }
+    .ghost-mode-active .brand-subtitle { color: #ff0000; }
+</style>
+
+<style>
+    .ghost-mode-active {
+        background: #1a0000 !important; /* To'q qizil qora fon */
+        border-color: #ff0000 !important;
+        box-shadow: 0 0 40px rgba(255, 0, 0, 0.4) !important;
+    }
+    .ghost-mode-active h1, .ghost-mode-active .vault-value {
+        color: #ff3333 !important;
+        text-shadow: 0 0 20px #ff0000;
+    }
+    .ghost-mode-active .brand-subtitle { color: #ff0000; }
+</style>
+
+<script>
+    /* Ghost Mode Logic yangilandi */
+    function checkGhostMode() {
+        let now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let totalMinutes = hours * 60 + minutes;
+
+        let startGhost = 21 * 60 + 40; 
+        let endGhost = 7 * 60; 
+
+        let interface = document.querySelector('.core-interface');
+        
+        if (totalMinutes >= startGhost || totalMinutes < endGhost) {
+            // Qizil qonli Ghost Mode
+            interface.classList.add('ghost-mode-active');
+            // CEO bo'lmasa qizil ogohlantirish chiqaramiz
+            if(currentUser !== "Abubakir_CEO") {
+                 console.log("GHOST MODE: ACTIVE // SYSTEM IN DANGER ZONE");
+            }
+        } else {
+            interface.classList.remove('ghost-mode-active');
+        }
+    }
+</script>
