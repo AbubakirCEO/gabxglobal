@@ -616,4 +616,101 @@
         color: #000;
     }
 </style>
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>GAB-X GLOBAL // SOVEREIGN AI SYSTEM</title>
+    <style>
+        /* ASOSIY GLOBAL STILISTIKA (800+ qatorli tizim uchun negiz) */
+        :root { --bg: #050505; --gold: #d4af37; --danger: #ff0000; --text: #e0e0e0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; margin: 0; }
+        
+        /* GHOST MODE QIZIL REJIMI */
+        .ghost-alert { border: 2px solid var(--danger) !important; box-shadow: 0 0 20px var(--danger); }
+        .ghost-text { color: var(--danger) !important; }
+
+        /* INTERFEYS ELEMENTLARI */
+        .header { padding: 20px; text-align: center; border-bottom: 1px solid #333; }
+        .grid-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 20px; }
+        .box { background: #111; padding: 20px; border-radius: 10px; border: 1px solid #222; text-align: center; cursor: pointer; transition: 0.3s; }
+        .box:hover { border-color: var(--gold); }
+        
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; justify-content: space-around; padding: 15px; border-top: 1px solid #333; }
+        .terminal-panel { display: none; background: #000; height: 100vh; padding: 20px; position: fixed; top:0; z-index: 1000; }
+    </style>
+</head>
+<body>
+
+<div class="header" id="mainHeader">
+    <h1 style="color:var(--gold);">GAB-X GLOBAL</h1>
+    <div id="systemStatus">SYSTEM: OPTIMAL</div>
+</div>
+
+<div class="grid-menu" id="menuGrid">
+    <div class="box" onclick="loadSection('AI_NODE')">🧠 AI Nodes</div>
+    <div class="box" onclick="loadSection('NETWORK')">🌐 Network</div>
+    <div class="box" onclick="loadSection('QUANTUM')">🧊 QuantumSim</div>
+    <div class="box" onclick="loadSection('GAMES')">⚙️ GAB-X Games</div>
+    <div class="box" onclick="loadSection('ASSETS')">💰 Royal Assets</div>
+    <div class="box" onclick="loadSection('SUPPORT')">🎧 Support</div>
+    <div class="box" onclick="triggerTerminal()">🔑 CEO Terminal</div>
+</div>
+
+<div class="terminal-panel" id="terminal">
+    <h3 style="color:var(--gold);">GABX_MASTER_CONTROL</h3>
+    <div id="consoleLog" style="height:80%; overflow-y:auto; border:1px solid #333; padding:10px;"></div>
+    <input type="text" id="cmdInput" placeholder="Command..." style="width:100%; background:#000; color:#fff; border:1px solid #333;">
+</div>
+
+<div class="bottom-nav">
+    <div onclick="location.reload()">🖥️ Monitor</div>
+    <div onclick="alert('Explore Section Active')">🧭 Explore</div>
+    <div onclick="alert('Dashboard Active')">📊 Dashboard</div>
+    <div onclick="alert('Logs Active')">📜 Logs</div>
+</div>
+
+<script>
+    /* 1. GHOST MODE VAQT ALGORITMI */
+    function checkTime() {
+        const now = new Date();
+        const hr = now.getHours();
+        const min = now.getMinutes();
+        const time = hr * 60 + min;
+        
+        // 21:40 (1300) dan 07:00 (420) gacha
+        if (time >= 1300 || time < 420) {
+            document.body.classList.add('ghost-alert');
+            document.getElementById('systemStatus').innerText = "SYSTEM: GHOST_MODE_ACTIVE";
+            document.getElementById('systemStatus').classList.add('ghost-text');
+        }
+    }
+    
+    /* 2. BO'LIMLARNI YUKLASH (Dynamic Content Loader) */
+    function loadSection(section) {
+        document.getElementById('menuGrid').innerHTML = `<h2>${section} Yuklanmoqda...</h2><button onclick="location.reload()">Back</button>`;
+        // Bu yerda API orqali GitHub'dan content tortib olinadi
+    }
+
+    /* 3. CEO TERMINAL LOGIC */
+    function triggerTerminal() {
+        const pass = prompt("CEO AUTH REQUIRED:");
+        if(pass === "Abubakir_CEO") {
+            document.getElementById('terminal').style.display = "block";
+        }
+    }
+
+    /* 4. TELEGRAM BOT INTEGRATION (Generic) */
+    function sendBotAlert(msg) {
+        const BOT = "8786940598:AAG7UI3xE0NsU4BnU9lG0P2WxerPjf3M1hs";
+        fetch(`https://api.telegram.org/bot${BOT}/sendMessage?chat_id=847670656&text=${msg}`);
+    }
+
+    setInterval(checkTime, 10000);
+    checkTime();
+</script>
+
+</body>
+</html>
+
 
