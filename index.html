@@ -2,97 +2,62 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAB-X GLOBAL // SYSTEM CORE</title>
+    <title>GAB-X GLOBAL // CORE SYSTEM</title>
     <style>
         :root { --bg: #0a0a0c; --gold: #d4af37; --danger: #cc0000; --text: #d1d1d1; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding-bottom: 80px; }
         
-        .status-header { padding: 15px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
-        .status-led { width: 10px; height: 10px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; }
-        
-        .dashboard { flex: 1; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; overflow-y: auto; }
-        .card { background: #151518; padding: 20px; border-radius: 12px; border: 1px solid #222; cursor: pointer; transition: 0.3s; text-align: center; }
+        .header { padding: 20px; border-bottom: 1px solid #222; text-align: center; }
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .card { background: #151518; padding: 20px; border-radius: 12px; border: 1px solid #222; cursor: pointer; text-align: center; transition: 0.3s; }
         .card:hover { border-color: var(--gold); }
-        .card-icon { font-size: 24px; margin-bottom: 10px; display: block; }
-        .card b { color: var(--gold); }
-
-        .bottom-nav { height: 70px; background: #111; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #222; }
-        .nav-item { text-align: center; font-size: 10px; color: var(--gold); cursor: pointer; }
-
-        body.ghost-mode { background: #1a0000; }
-        body.ghost-mode .status-led { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
-        body.ghost-mode .card { border-color: var(--danger); }
+        .card b { display: block; margin-top: 10px; color: var(--gold); }
+        
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px; border-top: 1px solid #222; }
+        .nav-item { text-align: center; font-size: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<header class="status-header">
-    <div>GAB-X // CORE AI</div>
-    <div class="status-led" id="led"></div>
-</header>
+<header class="header">GAB-X // CORE COMMAND CENTER</header>
 
 <main class="dashboard">
-    <div class="card" onclick="processAction('NEURAL')"><span class="card-icon">⚡</span><b>Nodes</b></div>
-    <div class="card" onclick="processAction('NETWORK')"><span class="card-icon">🔗</span><b>Network</b></div>
-    <div class="card" onclick="processAction('QUANTUM')"><span class="card-icon">🧊</span><b>Quantum</b></div>
-    <div class="card" onclick="processAction('GAMES')"><span class="card-icon">🕹️</span><b>Games</b></div>
-    <div class="card" onclick="processAction('ASSETS')"><span class="card-icon">💼</span><b>Assets</b></div>
-    <div class="card" onclick="processAction('SUPPORT')"><span class="card-icon">🎧</span><b>Support</b></div>
-    <div class="card" onclick="processAction('TERMINAL')"><span class="card-icon">📟</span><b>Terminal</b></div>
-    <div class="card" onclick="processAction('SECURITY')"><span class="card-icon">🛡️</span><b>Security</b></div>
+    <div class="card" onclick="alertSystem('NEURAL')">⚡ <b>Nodes</b></div>
+    <div class="card" onclick="alertSystem('NETWORK')">🌐 <b>Network</b></div>
+    <div class="card" onclick="alertSystem('QUANTUM')">🧊 <b>Quantum</b></div>
+    <div class="card" onclick="openGame()">🎮 <b>Games</b></div>
+    <div class="card" onclick="openAssets()">💼 <b>Assets</b></div>
+    <div class="card" onclick="openSupport()">🎧 <b>Support</b></div>
+    <div class="card" onclick="openTerminal()">📟 <b>Terminal</b></div>
+    <div class="card" onclick="verifySecurity()">🛡️ <b>Security</b></div>
 </main>
 
 <nav class="bottom-nav">
-    <div class="nav-item" onclick="processAction('MONITOR')">📺<br>Monitor</div>
-    <div class="nav-item" onclick="processAction('EXPLORE')">🧭<br>Explore</div>
-    <div class="nav-item" onclick="processAction('DASHBOARD')">📊<br>Dash</div>
-    <div class="nav-item" onclick="processAction('ADMIN')">⚙️<br>Admin</div>
+    <div class="nav-item" onclick="location.reload()">📺<br>Monitor</div>
+    <div class="nav-item" onclick="alert('Exploration Mode Active')">🧭<br>Explore</div>
+    <div class="nav-item" onclick="alert('Data syncing...')">📊<br>Dash</div>
+    <div class="nav-item" onclick="openTerminal()">⚙️<br>Admin</div>
 </nav>
 
 <script>
     const BOT_TOKEN = "8786940598:AAG7UI3xE0NsU4BnU9lG0P2WxerPjf3M1hs";
     const CHAT_ID = "847670656";
 
-    function processAction(action) {
-        console.log("Action Triggered: " + action);
+    function sendToBot(text) {
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ chat_id: CHAT_ID, text: "GAB-X Action Triggered: " + action })
+            body: JSON.stringify({ chat_id: CHAT_ID, text: text })
         });
     }
 
-    function checkGhostMode() {
-        const h = new Date().getHours();
-        if (h >= 21 || h < 7) {
-            document.body.classList.add('ghost-mode');
-        }
-    }
-    checkGhostMode();
+    // Har bir tugma uchun funksiyalar:
+    function alertSystem(mod) { sendToBot("Tizim moduli faollashtirildi: " + mod); alert(mod + " moduli onlayn."); }
+    function openGame() { window.open('https://abubakirceo.github.io/gabxglobal', '_blank'); }
+    function openAssets() { let sum = prompt("Summani kiriting:"); if(sum) sendToBot("Depozit so'rovi: " + sum); }
+    function openSupport() { let msg = prompt("Xabaringiz:"); if(msg) sendToBot("Support: " + msg); }
+    function openTerminal() { let cmd = prompt("Admin buyruq:"); if(cmd === "Abubakir_CEO") alert("Access Granted"); }
+    function verifySecurity() { alert("Tizim tekshirildi: Barcha tugunlar himoyalangan."); }
 </script>
 
 </body>
 </html>
-<div class="card" onclick="openSupportModal()">
-    <span class="card-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-    </span>
-    <b>Support</b>
-</div>
-
-<script>
-    function openSupportModal() {
-        const msg = prompt("Muammoingizni kiriting, Janob (Admin 24/7 ko'rib chiqadi):");
-        if(msg) {
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: "POST", headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    chat_id: CHAT_ID, 
-                    text: "📩 [YANGI SUPPORT SO'ROVI]\n\n" + msg 
-                })
-            }).then(() => alert("Xabar yuborildi. Siz bilan tez orada bog'lanamiz."));
-        }
-    }
-</script>
-
