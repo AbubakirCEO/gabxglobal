@@ -583,3 +583,37 @@
         }
     }
 </script>
+<nav class="gabx-menu">
+    <div class="menu-item" onclick="showSection('quantum')">⚡ Kvant Pulse</div>
+    <div class="menu-item" onclick="showSection('mines')">💣 Kiber Miner</div>
+    <div class="menu-item" onclick="showSection('vault')">💰 Royal Vault</div>
+    <div class="menu-item" onclick="showSection('top100')">🏆 Top 100</div>
+    <div class="menu-item" onclick="showSection('promo')">🎁 Promocode</div>
+    <div class="menu-item" onclick="showSection('academy')">📚 Academy</div>
+    <div class="menu-item" onclick="showSection('ceo')">⚙️ Terminal</div>
+</nav>
+
+<style>
+    .gabx-menu {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    .menu-item {
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid var(--border-gold);
+        padding: 12px;
+        border-radius: 12px;
+        color: var(--gold-light);
+        text-align: center;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .menu-item:hover {
+        background: var(--gold-main);
+        color: #000;
+    }
+</style>
+
