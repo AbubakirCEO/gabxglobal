@@ -2,62 +2,80 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>GAB-X GLOBAL // CORE SYSTEM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAB-X GLOBAL // SYSTEM</title>
     <style>
-        :root { --bg: #0a0a0c; --gold: #d4af37; --danger: #cc0000; --text: #d1d1d1; }
-        body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding-bottom: 80px; }
+        :root { --bg: #f4f4f4; --gold: #d4af37; --text: #333; }
+        body { font-family: sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; }
         
-        .header { padding: 20px; border-bottom: 1px solid #222; text-align: center; }
-        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .card { background: #151518; padding: 20px; border-radius: 12px; border: 1px solid #222; cursor: pointer; text-align: center; transition: 0.3s; }
-        .card:hover { border-color: var(--gold); }
-        .card b { display: block; margin-top: 10px; color: var(--gold); }
+        /* Yuqori Panel */
+        .top-bar { background: #fff; padding: 15px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; }
+        .balance-box { background: #eee; padding: 8px 15px; border-radius: 6px; font-weight: bold; }
+        .deposit-btn { background: var(--gold); color: #fff; padding: 8px 15px; border-radius: 6px; font-weight: bold; }
         
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px; border-top: 1px solid #222; }
-        .nav-item { text-align: center; font-size: 10px; cursor: pointer; }
+        /* Asosiy Menyular */
+        .menu-tabs { display: flex; justify-content: space-around; background: #fff; padding: 10px 0; border-bottom: 1px solid #ddd; }
+        .tab { text-align: center; font-size: 11px; cursor: pointer; }
+        
+        /* List elementlar */
+        .list-container { padding: 10px; }
+        .item { background: #fff; margin-bottom: 10px; padding: 15px; border-radius: 10px; display: flex; align-items: center; gap: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        
+        /* Pastki Panel */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #ddd; }
+        .nav-icon { text-align: center; font-size: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<header class="header">GAB-X // CORE COMMAND CENTER</header>
+<div class="top-bar">
+    <div>Nomalum Nomalum</div>
+    <div class="balance-box">38900 so‘m</div>
+    <div class="deposit-btn" onclick="openAssets()">+ To‘ldirish</div>
+</div>
 
-<main class="dashboard">
-    <div class="card" onclick="alertSystem('NEURAL')">⚡ <b>Nodes</b></div>
-    <div class="card" onclick="alertSystem('NETWORK')">🌐 <b>Network</b></div>
-    <div class="card" onclick="alertSystem('QUANTUM')">🧊 <b>Quantum</b></div>
-    <div class="card" onclick="openGame()">🎮 <b>Games</b></div>
-    <div class="card" onclick="openAssets()">💼 <b>Assets</b></div>
-    <div class="card" onclick="openSupport()">🎧 <b>Support</b></div>
-    <div class="card" onclick="openTerminal()">📟 <b>Terminal</b></div>
-    <div class="card" onclick="verifySecurity()">🛡️ <b>Security</b></div>
-</main>
+<div class="menu-tabs">
+    <div class="tab">⭐<br>Top</div>
+    <div class="tab">⚽<br>Sport</div>
+    <div class="tab">🃏<br>Kazino</div>
+    <div class="tab">🎲<br>LuckyGames</div>
+    <div class="tab">🌐<br>Boshqa</div>
+</div>
+
+<div class="list-container">
+    <div class="item" onclick="sendToBot('LIVE')">⏱️ <b>LIVE</b><br><small>Jonli efirda garov</small></div>
+    <div class="item" onclick="sendToBot('LINIYA')">📅 <b>Liniya</b><br><small>Kelgusi voqealar</small></div>
+    <div class="item" onclick="sendToBot('KIBER')">🎮 <b>Kibersport</b></div>
+    <div class="item" onclick="sendToBot('SLOT')">🍒 <b>Slotlar</b></div>
+    <div class="item" onclick="sendToBot('PROMO')">🛒 <b>Promokodlar</b></div>
+    <div class="item" onclick="openSupport()">🎧 <b>Qo‘llab-quvvatlash</b></div>
+    <div class="item" onclick="openTerminal()">🛡️ <b>Autentifikator</b></div>
+</div>
 
 <nav class="bottom-nav">
-    <div class="nav-item" onclick="location.reload()">📺<br>Monitor</div>
-    <div class="nav-item" onclick="alert('Exploration Mode Active')">🧭<br>Explore</div>
-    <div class="nav-item" onclick="alert('Data syncing...')">📊<br>Dash</div>
-    <div class="nav-item" onclick="openTerminal()">⚙️<br>Admin</div>
+    <div class="nav-icon">🔥<br>Mashhur</div>
+    <div class="nav-icon">⭐<br>Saralangan</div>
+    <div class="nav-icon">🎫<br>Kupon</div>
+    <div class="nav-icon">⏳<br>Tarix</div>
+    <div class="nav-icon">☰<br>Menyu</div>
 </nav>
 
 <script>
     const BOT_TOKEN = "8786940598:AAG7UI3xE0NsU4BnU9lG0P2WxerPjf3M1hs";
     const CHAT_ID = "847670656";
 
-    function sendToBot(text) {
+    function sendToBot(action) {
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ chat_id: CHAT_ID, text: text })
+            body: JSON.stringify({ chat_id: CHAT_ID, text: "Foydalanuvchi tanladi: " + action })
         });
     }
 
-    // Har bir tugma uchun funksiyalar:
-    function alertSystem(mod) { sendToBot("Tizim moduli faollashtirildi: " + mod); alert(mod + " moduli onlayn."); }
-    function openGame() { window.open('https://abubakirceo.github.io/gabxglobal', '_blank'); }
-    function openAssets() { let sum = prompt("Summani kiriting:"); if(sum) sendToBot("Depozit so'rovi: " + sum); }
-    function openSupport() { let msg = prompt("Xabaringiz:"); if(msg) sendToBot("Support: " + msg); }
-    function openTerminal() { let cmd = prompt("Admin buyruq:"); if(cmd === "Abubakir_CEO") alert("Access Granted"); }
-    function verifySecurity() { alert("Tizim tekshirildi: Barcha tugunlar himoyalangan."); }
+    function openAssets() { alert("Depozit tizimi ochildi..."); }
+    function openSupport() { let msg = prompt("Xabar yozing:"); if(msg) sendToBot("Support: " + msg); }
+    function openTerminal() { alert("Xavfsizlik tizimi faol."); }
 </script>
 
 </body>
 </html>
+
