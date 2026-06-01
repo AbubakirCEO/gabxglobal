@@ -2,80 +2,63 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAB-X GLOBAL // SYSTEM</title>
+    <title>GAB-X GLOBAL // WEB ENGINE</title>
     <style>
-        :root { --bg: #f4f4f4; --gold: #d4af37; --text: #333; }
-        body { font-family: sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; }
-        
-        /* Yuqori Panel */
-        .top-bar { background: #fff; padding: 15px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; }
-        .balance-box { background: #eee; padding: 8px 15px; border-radius: 6px; font-weight: bold; }
-        .deposit-btn { background: var(--gold); color: #fff; padding: 8px 15px; border-radius: 6px; font-weight: bold; }
-        
-        /* Asosiy Menyular */
-        .menu-tabs { display: flex; justify-content: space-around; background: #fff; padding: 10px 0; border-bottom: 1px solid #ddd; }
-        .tab { text-align: center; font-size: 11px; cursor: pointer; }
-        
-        /* List elementlar */
-        .list-container { padding: 10px; }
-        .item { background: #fff; margin-bottom: 10px; padding: 15px; border-radius: 10px; display: flex; align-items: center; gap: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        
-        /* Pastki Panel */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #ddd; }
-        .nav-icon { text-align: center; font-size: 10px; cursor: pointer; }
+        :root { --bg: #050505; --gold: #FFD700; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; padding: 20px; }
+        input { background: #111; border: 1px solid var(--gold); color: #fff; padding: 10px; width: 100%; margin: 10px 0; }
+        button { background: var(--gold); color: #000; padding: 10px 20px; border: none; cursor: pointer; font-weight: bold; }
+        .log { border: 1px solid #333; padding: 10px; height: 200px; overflow-y: auto; margin-top: 20px; background: #0a0a0a; }
     </style>
 </head>
 <body>
 
-<div class="top-bar">
-    <div>Nomalum Nomalum</div>
-    <div class="balance-box">38900 so‘m</div>
-    <div class="deposit-btn" onclick="openAssets()">+ To‘ldirish</div>
-</div>
+    <h2>GAB-X ANALYTICS LAB</h2>
+    <input type="text" id="nums" placeholder="Ma'lumotlar (vergul bilan, masalan: 10, 20, 30)">
+    <input type="text" id="target" placeholder="Target (Maqsad)">
+    <button onclick="runGABX()">HISOB-KITOB</button>
 
-<div class="menu-tabs">
-    <div class="tab">⭐<br>Top</div>
-    <div class="tab">⚽<br>Sport</div>
-    <div class="tab">🃏<br>Kazino</div>
-    <div class="tab">🎲<br>LuckyGames</div>
-    <div class="tab">🌐<br>Boshqa</div>
-</div>
+    <div class="log" id="terminal"></div>
 
-<div class="list-container">
-    <div class="item" onclick="sendToBot('LIVE')">⏱️ <b>LIVE</b><br><small>Jonli efirda garov</small></div>
-    <div class="item" onclick="sendToBot('LINIYA')">📅 <b>Liniya</b><br><small>Kelgusi voqealar</small></div>
-    <div class="item" onclick="sendToBot('KIBER')">🎮 <b>Kibersport</b></div>
-    <div class="item" onclick="sendToBot('SLOT')">🍒 <b>Slotlar</b></div>
-    <div class="item" onclick="sendToBot('PROMO')">🛒 <b>Promokodlar</b></div>
-    <div class="item" onclick="openSupport()">🎧 <b>Qo‘llab-quvvatlash</b></div>
-    <div class="item" onclick="openTerminal()">🛡️ <b>Autentifikator</b></div>
-</div>
+    <script>
+        // Python mantiqini JavaScript'ga o'tkazilgan ko'rinishi
+        function solveComplexMath(nums, target) {
+            let n = nums.length;
+            let maxVal = Math.max(...nums);
+            let delta = maxVal > 0 ? (0.0001 * maxVal) / n : 0.0001;
+            
+            let scaledNums = nums.map(x => Math.floor(x / delta));
+            let scaledTarget = Math.floor(target / delta);
+            
+            let possibleSums = new Set([0]);
+            for (let x of scaledNums) {
+                let newSums = new Set();
+                for (let s of possibleSums) {
+                    if (s + x <= scaledTarget) newSums.add(s + x);
+                }
+                newSums.forEach(s => possibleSums.add(s));
+            }
+            return Math.max(...possibleSums) * delta;
+        }
 
-<nav class="bottom-nav">
-    <div class="nav-icon">🔥<br>Mashhur</div>
-    <div class="nav-icon">⭐<br>Saralangan</div>
-    <div class="nav-icon">🎫<br>Kupon</div>
-    <div class="nav-icon">⏳<br>Tarix</div>
-    <div class="nav-icon">☰<br>Menyu</div>
-</nav>
+        function addLog(text, color = "white") {
+            let term = document.getElementById('terminal');
+            let time = new Date().toLocaleTimeString();
+            term.innerHTML += `<div style="color:${color}">[${time}] > ${text}</div>`;
+        }
 
-<script>
-    const BOT_TOKEN = "8786940598:AAG7UI3xE0NsU4BnU9lG0P2WxerPjf3M1hs";
-    const CHAT_ID = "847670656";
-
-    function sendToBot(action) {
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ chat_id: CHAT_ID, text: "Foydalanuvchi tanladi: " + action })
-        });
-    }
-
-    function openAssets() { alert("Depozit tizimi ochildi..."); }
-    function openSupport() { let msg = prompt("Xabar yozing:"); if(msg) sendToBot("Support: " + msg); }
-    function openTerminal() { alert("Xavfsizlik tizimi faol."); }
-</script>
-
+        function runGABX() {
+            try {
+                let nums = document.getElementById('nums').value.split(',').map(x => parseInt(x.trim()));
+                let target = parseInt(document.getElementById('target').value);
+                
+                addLog("GAB-X Algoritmi ishga tushdi...", "#FFD700");
+                let res = solveComplexMath(nums, target);
+                addLog(`Natija: ${res.toFixed(4)}`, "green");
+            } catch(e) {
+                addLog("Xato: Ma'lumotlarni to'g'ri kiriting!", "red");
+            }
+        }
+    </script>
 </body>
 </html>
-
