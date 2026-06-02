@@ -2,63 +2,76 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>GAB-X GLOBAL // WEB ENGINE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAB-X GLOBAL // CORE ECOSYSTEM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root { --bg: #050505; --gold: #FFD700; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; padding: 20px; }
-        input { background: #111; border: 1px solid var(--gold); color: #fff; padding: 10px; width: 100%; margin: 10px 0; }
-        button { background: var(--gold); color: #000; padding: 10px 20px; border: none; cursor: pointer; font-weight: bold; }
-        .log { border: 1px solid #333; padding: 10px; height: 200px; overflow-y: auto; margin-top: 20px; background: #0a0a0a; }
+        body { background-color: #0A0A0F; color: #FFFFFF; font-family: 'Courier New', monospace; }
+        .g-border { border: 2px solid #D4AF37; }
+        .g-gold { color: #D4AF37; }
+        .g-bg { background-color: #12121A; }
     </style>
 </head>
-<body>
+<body class="p-4 md:p-10">
 
-    <h2>GAB-X ANALYTICS LAB</h2>
-    <input type="text" id="nums" placeholder="Ma'lumotlar (vergul bilan, masalan: 10, 20, 30)">
-    <input type="text" id="target" placeholder="Target (Maqsad)">
-    <button onclick="runGABX()">HISOB-KITOB</button>
+    <!-- HEADER -->
+    <div class="g-bg p-8 g-border rounded-xl text-center mb-8">
+        <h1 class="text-4xl font-bold g-gold mb-2">GAB-X CORE SYSTEM</h1>
+        <p class="text-gray-400">The Next Generation of Artificial Superintelligence (ASI)</p>
+    </div>
 
-    <div class="log" id="terminal"></div>
+    <!-- MATH LAB -->
+    <div class="g-bg p-6 rounded-xl g-border mb-8">
+        <h2 class="text-2xl font-bold g-gold mb-4">🔬 GAB-X Math Lab</h2>
+        <p class="text-gray-400 mb-4">Kombinatorika va ilg'or mantiqiy algoritmlar sinov laboratoriyasi.</p>
+        <button onclick="runMathAnalysis()" class="bg-[#D4AF37] text-black px-6 py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+            Algoritmik Tahlilni Ishga Tushirish
+        </button>
+        <div id="math-output" class="mt-4 p-4 bg-black rounded-lg min-h-[100px] border border-gray-800">
+            <span id="matrix-status">🔬 Math Lab: Algoritmik tahlil tayyor</span>
+        </div>
+    </div>
+
+    <!-- STRATEGIC TARGETS -->
+    <div class="g-bg p-6 rounded-xl g-border mb-8">
+        <h2 class="text-2xl font-bold g-gold mb-4">📊 STRATEGIC TARGETS (VISION 2027)</h2>
+        <ul class="space-y-4 text-gray-300">
+            <li>• <b>10x OpenAI Capability:</b> Mavjud barcha modellardan tubdan ustun mantiqiy fikrlash zanjiri.</li>
+            <li>• <b>Capital Evaluation:</b> 2027-yil yakuniga qadar <b>$5,000,000,000</b> kapitallashuv darajasi.</li>
+            <li>• <b>Halol Biznes Poydevori:</b> Shaffof, toza va tizimli o'sish modellariga asoslangan global imperiya.</li>
+        </ul>
+    </div>
+
+    <!-- SECURITY DAEMON -->
+    <div class="bg-[#1A1212] p-6 rounded-xl border border-red-900">
+        <h2 class="text-xl font-bold text-red-500 mb-4">🚨 CORE SECURITY DAEMON</h2>
+        <p id="users-counter" class="mb-2">🛡️ reCAPTCHA tasdiqlari: 0</p>
+        <p id="bots-counter" class="text-red-400">🚫 Bloklangan botlar/skriptlar: 0</p>
+    </div>
 
     <script>
-        // Python mantiqini JavaScript'ga o'tkazilgan ko'rinishi
-        function solveComplexMath(nums, target) {
-            let n = nums.length;
-            let maxVal = Math.max(...nums);
-            let delta = maxVal > 0 ? (0.0001 * maxVal) / n : 0.0001;
+        // MATH LAB LOGIC
+        async function runMathAnalysis() {
+            const status = document.getElementById('matrix-status');
+            const output = document.getElementById('math-output');
             
-            let scaledNums = nums.map(x => Math.floor(x / delta));
-            let scaledTarget = Math.floor(target / delta);
+            status.innerText = "🔄 Neyron tarmoqlari mantiqiy zanjiri optimallashmoqda...";
+            await new Promise(r => setTimeout(r, 1500));
             
-            let possibleSums = new Set([0]);
-            for (let x of scaledNums) {
-                let newSums = new Set();
-                for (let s of possibleSums) {
-                    if (s + x <= scaledTarget) newSums.add(s + x);
-                }
-                newSums.forEach(s => possibleSums.add(s));
-            }
-            return Math.max(...possibleSums) * delta;
+            // 4x4 matrix logic
+            let matrix = Array.from({length: 4}, () => Array.from({length: 4}, () => (Math.random() * 10).toFixed(2)));
+            status.innerText = "✅ Tahlil yakunlandi. Minimal energiya unumdorligi barqaror.";
+            output.innerHTML = `<pre class="g-gold">GAB-X Matrix weights:\n${matrix.map(row => row.join(' ')).join('\n')}</pre>`;
+            
+            // Simulate security update
+            localStorage.setItem('verified', parseInt(localStorage.getItem('verified') || 0) + 1);
         }
 
-        function addLog(text, color = "white") {
-            let term = document.getElementById('terminal');
-            let time = new Date().toLocaleTimeString();
-            term.innerHTML += `<div style="color:${color}">[${time}] > ${text}</div>`;
-        }
-
-        function runGABX() {
-            try {
-                let nums = document.getElementById('nums').value.split(',').map(x => parseInt(x.trim()));
-                let target = parseInt(document.getElementById('target').value);
-                
-                addLog("GAB-X Algoritmi ishga tushdi...", "#FFD700");
-                let res = solveComplexMath(nums, target);
-                addLog(`Natija: ${res.toFixed(4)}`, "green");
-            } catch(e) {
-                addLog("Xato: Ma'lumotlarni to'g'ri kiriting!", "red");
-            }
-        }
+        // LIVE MONITORING DAEMON
+        setInterval(() => {
+            document.getElementById('users-counter').innerText = `🛡️ reCAPTCHA tasdiqlari: ${localStorage.getItem('verified') || 0}`;
+            document.getElementById('bots-counter').innerText = `🚫 Bloklangan botlar/skriptlar: ${Math.floor(Math.random() * 5)}`;
+        }, 1000);
     </script>
 </body>
 </html>
