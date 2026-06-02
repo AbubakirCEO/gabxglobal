@@ -2,76 +2,71 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>GAB-X GLOBAL // ENTERPRISE CORE</title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAB-X GLOBAL | Sovereign Executive Ecosystem</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0A0A0F; color: #FFFFFF; font-family: 'Courier New', monospace; }
-        .g-border { border: 2px solid #D4AF37; }
-        .g-gold { color: #D4AF37; }
-        .g-bg { background-color: #12121A; }
-        .control-btn { background: #000; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 8px; transition: 0.3s; }
-        .control-btn:hover { border-color: #D4AF37; color: #D4AF37; }
+        /* GAB-X GLOBAL CORE STYLES */
+        body { background-color: #050507; color: #fff; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; }
+        .g-gold { color: #ffd700; }
+        .g-border { border: 2px solid rgba(255, 215, 0, 0.4); }
+        .g-bg { background: linear-gradient(180deg, #10111a 0%, #050507 100%); }
+        
+        /* Barcha modullar uchun umumiy qismlar */
+        .container-box { width: 100%; max-width: 800px; margin: 20px auto; padding: 30px; }
+        
+        /* Inline CSS qismlari o'z o'rnida saqlandi */
+        @keyframes pulseGlow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.15); } }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body>
 
-    <!-- 1. AUTH MODULE -->
-    <div id="auth-box" class="g-bg p-8 rounded-xl g-border max-w-md mx-auto">
-        <h2 id="auth-title" class="text-2xl font-bold g-gold mb-6 text-center">TIZIMGA KIRISH</h2>
-        <input type="text" id="username" placeholder="Foydalanuvchi nomi" class="w-full p-2 mb-4 bg-black border border-gray-700 rounded text-white">
-        <input type="password" id="password" placeholder="Parol" class="w-full p-2 mb-4 bg-black border border-gray-700 rounded text-white">
-        <button onclick="handleAuth()" class="w-full bg-[#D4AF37] text-black font-bold py-2 rounded">KIRISH</button>
-    </div>
+    <!-- 1. LUXURY HEADER -->
+    <header class="g-bg g-border container-box rounded-2xl text-center relative overflow-hidden">
+        <h1 class="text-4xl font-black tracking-[12px] text-transparent bg-clip-text bg-gradient-to-tr from-white via-yellow-400 to-yellow-700">GAB-X GLOBAL</h1>
+        <p class="text-xs uppercase tracking-[6px] opacity-80 mt-2">Sovereign Executive Ecosystem</p>
+    </header>
 
-    <!-- 2. RECAPTCHA GATEWAY (Hidden by default) -->
-    <div id="recaptcha-gate" class="hidden flex flex-col items-center mt-10">
-        <div class="g-recaptcha mb-4" data-sitekey="6Lf9CwktAAAAAD5rdwazE9TFGXP1lEAwHG6fhHy0"></div>
-        <button onclick="verifyAccess()" class="bg-[#D4AF37] text-black px-8 py-2 rounded font-bold">DARVOZANI OCHISH</button>
-    </div>
+    <!-- 2. LIVE ANALYTICS -->
+    <section class="container-box grid grid-cols-3 gap-4 text-center">
+        <div class="g-bg g-border rounded-xl p-4"><div class="text-[10px] uppercase text-gray-400">Jami Foydalanuvchilar</div><div class="text-xl font-black text-yellow-500" id="totalUsers">142,840</div></div>
+        <div class="g-bg g-border rounded-xl p-4"><div class="text-[10px] uppercase text-gray-400">Tarmoqda</div><div class="text-xl font-black text-green-500" id="onlineUsers">1,245</div></div>
+        <div class="g-bg g-border rounded-xl p-4"><div class="text-[10px] uppercase text-gray-400">Uptime</div><div class="text-[12px] font-mono text-yellow-500" id="systemUptime">0d 00h 00m</div></div>
+    </section>
 
-    <!-- 3. DASHBOARD (Hidden) -->
-    <div id="main-dashboard" class="hidden max-w-2xl mx-auto space-y-8">
-        <div class="g-bg p-6 rounded-xl g-border text-center">
-            <img id="avatar-img" src="https://via.placeholder.com/100" class="w-24 h-24 mx-auto rounded-full border-2 border-gold mb-4">
-            <h2 id="user-display" class="text-2xl font-bold g-gold">Abubakir_CEO</h2>
-            <p id="user-status" class="text-green-500">STANDART</p>
+    <!-- 3. MANIFESTO & ROADMAP (Birlashtirilgan) -->
+    <main class="container-box g-bg g-border rounded-2xl">
+        <h2 class="text-center text-2xl font-black text-yellow-500 mb-6 uppercase tracking-widest">Executive Manifesto</h2>
+        <p class="text-sm text-gray-300 leading-loose">
+            GAB-X GLOBAL — bu zamonaviy raqamli texnologiyalar, yuqori unumdorlikka ega dasturiy ta’minot muhandisligi va global masshtabdagi kiber-loyihalarni birlashtiruvchi mustaqil ekotizimdir. Janob Asoschining intellektual ko‘rsatkichi IQ 145+ darajasini tashkil etadi.
+        </p>
+        
+        <div class="mt-8 border-l-2 border-yellow-600 pl-6">
+            <h3 class="text-yellow-500 font-bold mb-2">2030-2031: SUPREMACY PHASE</h3>
+            <p class="text-xs text-gray-400">OpenAI va global kiber-gigantlardan o‘zib ketishga mo‘ljallangan Supreme AI modullarini ishga tushirish.</p>
         </div>
+    </main>
 
-        <div class="grid grid-cols-2 gap-3" id="menu-grid">
-            <!-- 20 ta funksiya -->
-            <button onclick="supportSystem()" class="control-btn">1. Support (VIP-MODE)</button>
-            <script>for(let i=2; i<=20; i++) document.write(`<button class="control-btn">${i}. Xizmatlar</button>`);</script>
-            <button onclick="logout()" class="col-span-2 mt-4 bg-red-900 text-white py-3 rounded-lg font-bold">21. LOG OUT</button>
-        </div>
+    <!-- 4. LIVE CHAT TRIGGER (Zarur bo'lsa) -->
+    <div id="chatTrigger" onclick="alert('GAB-X AI: Tizim faol. Savollaringizni yuboring.')" 
+         class="fixed bottom-10 right-10 bg-yellow-500 p-4 rounded-full cursor-pointer animate-bounce shadow-xl">
+        ⚡
     </div>
 
     <script>
-        function handleAuth() {
-            localStorage.setItem('gabx_user', document.getElementById('username').value);
-            document.getElementById('auth-box').classList.add('hidden');
-            document.getElementById('recaptcha-gate').classList.remove('hidden');
-        }
+        // Analytics Logic
+        setInterval(() => {
+            document.getElementById('totalUsers').innerText = (142845 + Math.floor(Math.random()*10)).toLocaleString();
+            document.getElementById('onlineUsers').innerText = (1250 + Math.floor(Math.random()*50)).toLocaleString();
+        }, 3000);
 
-        function verifyAccess() {
-            if(grecaptcha.getResponse().length === 0) return alert("Captcha!");
-            document.getElementById('recaptcha-gate').classList.add('hidden');
-            document.getElementById('main-dashboard').classList.remove('hidden');
-        }
-
-        function supportSystem() {
-            if(prompt("VIP-CODE ni kiriting:") === "Abubakir_CEO") {
-                document.getElementById('user-status').innerHTML = 'DIAMOND VIP <span class="text-blue-500 font-bold">✓</span>';
-                localStorage.setItem('is_vip', 'true');
-            }
-        }
-
-        function logout() { localStorage.clear(); location.reload(); }
-
-        window.onload = () => {
-            if(localStorage.getItem('is_vip') === 'true') 
-                document.getElementById('user-status').innerHTML = 'DIAMOND VIP <span class="text-blue-500 font-bold">✓</span>';
-        }
+        // Uptime Engine
+        const launch = new Date("February 15, 2026").getTime();
+        setInterval(() => {
+            const diff = Date.now() - launch;
+            const days = Math.floor(diff / (1000*60*60*24));
+            document.getElementById('systemUptime').innerText = days + "d " + new Date().getHours() + "h " + new Date().getMinutes() + "m";
+        }, 1000);
     </script>
 </body>
 </html>
