@@ -1,91 +1,32 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "GAB-X GLOBAL",
-  "url": "https://abubakirceo.github.io", 
-  "logo": "https://abubakirceo.github.io/logo.png",
-  "founder": {
-    "@type": "Person",
-    "name": "Abubakir Abdug'aniyev"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "email": "sizning-email@example.com"
-  }
-}
-</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAB-X GLOBAL | Sovereign Executive Ecosystem</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* GAB-X GLOBAL CORE STYLES */
-        body { background-color: #050507; color: #fff; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; }
-        .g-gold { color: #ffd700; }
-        .g-border { border: 2px solid rgba(255, 215, 0, 0.4); }
-        .g-bg { background: linear-gradient(180deg, #10111a 0%, #050507 100%); }
-        
-        /* Barcha modullar uchun umumiy qismlar */
-        .container-box { width: 100%; max-width: 800px; margin: 20px auto; padding: 30px; }
-        
-        /* Inline CSS qismlari o'z o'rnida saqlandi */
-        @keyframes pulseGlow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.15); } }
-    </style>
+    <title>GAB-X GLOBAL | Sovereign Ecosystem</title>
+
+    <!-- Google uchun rasmiy Schema Markup (Pasport) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "GAB-X GLOBAL",
+      "url": "https://abubakirceo.github.io/gabxglobal/",
+      "logo": "https://abubakirceo.github.io/gabxglobal/logo.png",
+      "founder": {
+        "@type": "Person",
+        "name": "Abubakir Abdug'aniyev Juraboyev Qobiljon o'g'li"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "xm.treder.n@gmail.com",
+        "contactType": "customer service"
+      }
+    }
+    </script>
 </head>
 <body>
-
-    <!-- 1. LUXURY HEADER -->
-    <header class="g-bg g-border container-box rounded-2xl text-center relative overflow-hidden">
-        <h1 class="text-4xl font-black tracking-[12px] text-transparent bg-clip-text bg-gradient-to-tr from-white via-yellow-400 to-yellow-700">GAB-X GLOBAL</h1>
-        <p class="text-xs uppercase tracking-[6px] opacity-80 mt-2">Sovereign Executive Ecosystem</p>
-    </header>
-
-    <!-- 2. LIVE ANALYTICS -->
-    <section class="container-box grid grid-cols-3 gap-4 text-center">
-        <div class="g-bg g-border rounded-xl p-4"><div class="text-[10px] uppercase text-gray-400">Jami Foydalanuvchilar</div><div class="text-xl font-black text-yellow-500" id="totalUsers">142,840</div></div>
-        <div class="g-bg g-border rounded-xl p-4"><div class="text-[10px] uppercase text-gray-400">Tarmoqda</div><div class="text-xl font-black text-green-500" id="onlineUsers">1,245</div></div>
-        <div class="g-bg g-border rounded-xl p-4"><div class="text-[10px] uppercase text-gray-400">Uptime</div><div class="text-[12px] font-mono text-yellow-500" id="systemUptime">0d 00h 00m</div></div>
-    </section>
-
-    <!-- 3. MANIFESTO & ROADMAP (Birlashtirilgan) -->
-    <main class="container-box g-bg g-border rounded-2xl">
-        <h2 class="text-center text-2xl font-black text-yellow-500 mb-6 uppercase tracking-widest">Executive Manifesto</h2>
-        <p class="text-sm text-gray-300 leading-loose">
-            GAB-X GLOBAL — bu zamonaviy raqamli texnologiyalar, yuqori unumdorlikka ega dasturiy ta’minot muhandisligi va global masshtabdagi kiber-loyihalarni birlashtiruvchi mustaqil ekotizimdir. Janob Asoschining intellektual ko‘rsatkichi IQ 145+ darajasini tashkil etadi.
-        </p>
-        
-        <div class="mt-8 border-l-2 border-yellow-600 pl-6">
-            <h3 class="text-yellow-500 font-bold mb-2">2030-2031: SUPREMACY PHASE</h3>
-            <p class="text-xs text-gray-400">OpenAI va global kiber-gigantlardan o‘zib ketishga mo‘ljallangan Supreme AI modullarini ishga tushirish.</p>
-        </div>
-    </main>
-
-    <!-- 4. LIVE CHAT TRIGGER (Zarur bo'lsa) -->
-    <div id="chatTrigger" onclick="alert('GAB-X AI: Tizim faol. Savollaringizni yuboring.')" 
-         class="fixed bottom-10 right-10 bg-yellow-500 p-4 rounded-full cursor-pointer animate-bounce shadow-xl">
-        ⚡
-    </div>
-
-    <script>
-        // Analytics Logic
-        setInterval(() => {
-            document.getElementById('totalUsers').innerText = (142845 + Math.floor(Math.random()*10)).toLocaleString();
-            document.getElementById('onlineUsers').innerText = (1250 + Math.floor(Math.random()*50)).toLocaleString();
-        }, 3000);
-
-        // Uptime Engine
-        const launch = new Date("February 15, 2026").getTime();
-        setInterval(() => {
-            const diff = Date.now() - launch;
-            const days = Math.floor(diff / (1000*60*60*24));
-            document.getElementById('systemUptime').innerText = days + "d " + new Date().getHours() + "h " + new Date().getMinutes() + "m";
-        }, 1000);
-    </script>
+    <h1>GAB-X GLOBAL</h1>
+    <p>Sovereign Mining & Technology Ecosystem.</p>
 </body>
 </html>
