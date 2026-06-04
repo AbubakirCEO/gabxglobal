@@ -2,47 +2,62 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>GAB-X AI | Sovereign Intelligence</title>
+    <title>GAB-X AI | Sovereign Intelligence Hub</title>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; }
-        .header { padding: 20px; font-weight: bold; border-bottom: 1px solid #333; }
-        #chatDisplay { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
-        .message { margin-bottom: 15px; padding: 10px; background: #1a1a1a; border-radius: 10px; width: fit-content; max-width: 80%; }
-        .input-box { padding: 20px; background: #000; display: flex; align-items: center; }
-        #userInput { background: #1a1a1a; border: none; color: #fff; width: 100%; padding: 15px; border-radius: 25px; outline: none; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        .header { padding: 20px; font-weight: bold; border-bottom: 1px solid #333; display: flex; justify-content: space-between; }
+        #chatBox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .msg { padding: 12px; border-radius: 15px; background: #1a1a1a; max-width: 80%; }
+        .input-area { padding: 20px; border-top: 1px solid #333; }
+        #userInput { width: 100%; padding: 18px; border-radius: 30px; background: #111; border: 1px solid #444; color: #fff; outline: none; }
     </style>
 </head>
 <body>
 
-<div class="header" id="userInfo">GAB-X AI - Loading...</div>
-<div id="chatDisplay"></div>
+<div class="header">
+    <span id="userDisplay"></span>
+    <span>GAB-X GLOBAL v1.0</span>
+</div>
 
-<div class="input-box">
-    <input type="text" id="userInput" placeholder="Ask GAB-X AI..." onkeydown="handleInput(event)">
+<div id="chatBox"></div>
+
+<div class="input-area">
+    <input type="text" id="userInput" placeholder="Ask GAB-X AI (Powered by 5+ AI Models)..." onkeydown="handleInput(event)">
 </div>
 
 <script>
-    // Sizning ma'lumotlaringiz
+    // 1. Google Account ma'lumotlari
     const userProfile = {
         name: "Abubakir Abdug'aniyev Juraboyev Qobiljon o'g'li",
         email: "abubakir.juraboyev@gmail.com"
     };
-    document.getElementById('userInfo').innerText = `${userProfile.name} | ${userProfile.email}`;
+    document.getElementById('userDisplay').innerText = `${userProfile.name} | ${userProfile.email}`;
 
-    // Chat funksiyasi
+    // 2. Multi-AI Router (Sizning "miyangiz")
+    async function processQuery(query) {
+        const chatBox = document.getElementById('chatBox');
+        chatBox.innerHTML += `<div class="msg"><b>Siz:</b> ${query}</div>`;
+        
+        // Bu qism API'laringizni bog'lash joyi (Backendga yo'naltiriladi)
+        // Hozircha "Limitsiz" javob funksiyasi simulyatsiyasi:
+        const response = await simulateMultiAI(query);
+        chatBox.innerHTML += `<div class="msg" style="border-left: 3px solid #38bdf8;"><b>GAB-X AI (Multi-Model):</b> ${response}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // 3. 5+ AI modeli uchun javob beruvchi funksiya
+    function simulateMultiAI(query) {
+        if (query.toLowerCase().includes("gab-x")) {
+            return "GAB-X GLOBAL — bu muhandislik va intellektning suveren markazi. Men sizning barcha savollaringizga, xoh matematik, xoh kreativ, xoh texnik bo'lsin, eng yuqori aniqlik bilan javob beraman.";
+        }
+        return "GAB-X AI tizimi Gemini, GPT-4, Claude va boshqa 5+ modellar yordamida so‘rovingizni tahlil qildi: " + query + " bo‘yicha batafsil yechim topildi.";
+    }
+
     function handleInput(event) {
         if (event.key === 'Enter') {
             const input = document.getElementById('userInput');
-            const chatDisplay = document.getElementById('chatDisplay');
-            
-            // Foydalanuvchi xabari
-            chatDisplay.innerHTML += `<div class="message"><b>Siz:</b> ${input.value}</div>`;
-            
-            // GAB-X AI javobi (API o'rniga namuna)
-            chatDisplay.innerHTML += `<div class="message"><b>GAB-X AI:</b> Sizning GAB-X GLOBAL loyihangiz haqida ma'lumot qidiryapman... (Limitsiz rejim faol).</div>`;
-            
+            processQuery(input.value);
             input.value = '';
-            chatDisplay.scrollTop = chatDisplay.scrollHeight;
         }
     }
 </script>
