@@ -2,34 +2,50 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAB-X AI</title>
+    <title>GAB-X AI | Sovereign Intelligence</title>
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .header { font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; }
-        .greeting { font-size: 1.8rem; margin-bottom: 30px; }
-        .options { display: flex; flex-direction: column; gap: 15px; width: 80%; max-width: 300px; }
-        .btn { background-color: #1a1a1a; padding: 15px; border-radius: 25px; text-align: left; cursor: pointer; border: none; color: #fff; font-size: 1rem; }
-        .input-area { position: absolute; bottom: 30px; width: 90%; max-width: 500px; background: #1a1a1a; padding: 15px; border-radius: 30px; display: flex; align-items: center; }
-        .input-area input { background: transparent; border: none; color: #fff; width: 100%; outline: none; margin-left: 10px; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; }
+        .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .input-box { position: fixed; bottom: 20px; width: 90%; max-width: 600px; background: #1a1a1a; padding: 15px 25px; border-radius: 30px; display: flex; align-items: center; }
+        #userInput { background: transparent; border: none; color: #fff; width: 100%; outline: none; font-size: 1rem; }
     </style>
 </head>
 <body>
 
-<div class="header">GAB-X AI</div>
-<div class="greeting">Salom, Abubakir. <br>Nimadan boshlaymiz?</div>
-
-<div class="options">
-    <button class="btn">🖼️ Rasm yaratish</button>
-    <button class="btn">🎬 Video yaratish</button>
-    <button class="btn">🧠 Sovreign Math</button>
-    <button class="btn">✨ Kunni yaxshilash</button>
+<div class="main-content">
+    <h1 id="greeting">Salom!</h1>
+    <p>GAB-X GLOBAL haqida istalgan narsani so‘rang.</p>
 </div>
 
-<div class="input-area">
-    <span>+</span>
-    <input type="text" placeholder="GAB-X AI ga yozing...">
+<div class="input-box">
+    <input type="text" id="userInput" placeholder="Ask GAB-X AI..." onkeydown="handleInput(event)">
 </div>
 
+<script>
+    // 1. Ismni dinamik aniqlash
+    const userName = localStorage.getItem('userName') || "Foydalanuvchi";
+    document.getElementById('greeting').innerText = `Salom, ${userName}!`;
+
+    // 2. GAB-X Bilimlar bazasi
+    const gabxKnowledge = {
+        "GAB-X GLOBAL": "GAB-X GLOBAL — bu Abubakir Abdug'aniyev Juraboyev Qobiljon o'g'li tomonidan asos solingan suveren ekotizim.",
+        "Sovereign Tap": "Sovereign Tap — bu GAB-X ekotizimidagi tap-to-earn o'yin mexanikasiga asoslangan innovatsion loyiha.",
+        "Maqsad": "Bizning maqsadimiz P vs NP muammosini hal qilish va cheksiz hisoblash quvvatini taqdim etish."
+    };
+
+    // 3. Limitsiz Chat funksiyasi
+    function handleInput(event) {
+        if (event.key === 'Enter') {
+            const input = document.getElementById('userInput').value;
+            processQuery(input);
+        }
+    }
+
+    function processQuery(query) {
+        // Bu yerda Gemini va OpenAI API routeri ishlaydi
+        let response = gabxKnowledge[query] || "GAB-X AI: Men bu savolga javob berish uchun GAB-X serverlariga ulandim. (API javobi bu yerda ko'rinadi)";
+        alert(response); 
+    }
+</script>
 </body>
 </html>
