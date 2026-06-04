@@ -4,47 +4,46 @@
     <meta charset="UTF-8">
     <title>GAB-X AI | Sovereign Intelligence</title>
     <style>
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; }
-        .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .input-box { position: fixed; bottom: 20px; width: 90%; max-width: 600px; background: #1a1a1a; padding: 15px 25px; border-radius: 30px; display: flex; align-items: center; }
-        #userInput { background: transparent; border: none; color: #fff; width: 100%; outline: none; font-size: 1rem; }
+        body { background: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; }
+        .header { padding: 20px; font-weight: bold; border-bottom: 1px solid #333; }
+        #chatDisplay { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
+        .message { margin-bottom: 15px; padding: 10px; background: #1a1a1a; border-radius: 10px; width: fit-content; max-width: 80%; }
+        .input-box { padding: 20px; background: #000; display: flex; align-items: center; }
+        #userInput { background: #1a1a1a; border: none; color: #fff; width: 100%; padding: 15px; border-radius: 25px; outline: none; }
     </style>
 </head>
 <body>
 
-<div class="main-content">
-    <h1 id="greeting">Salom!</h1>
-    <p>GAB-X GLOBAL haqida istalgan narsani so‘rang.</p>
-</div>
+<div class="header" id="userInfo">GAB-X AI - Loading...</div>
+<div id="chatDisplay"></div>
 
 <div class="input-box">
     <input type="text" id="userInput" placeholder="Ask GAB-X AI..." onkeydown="handleInput(event)">
 </div>
 
 <script>
-    // 1. Ismni dinamik aniqlash
-    const userName = localStorage.getItem('userName') || "Foydalanuvchi";
-    document.getElementById('greeting').innerText = `Salom, ${userName}!`;
-
-    // 2. GAB-X Bilimlar bazasi
-    const gabxKnowledge = {
-        "GAB-X GLOBAL": "GAB-X GLOBAL — bu Abubakir Abdug'aniyev Juraboyev Qobiljon o'g'li tomonidan asos solingan suveren ekotizim.",
-        "Sovereign Tap": "Sovereign Tap — bu GAB-X ekotizimidagi tap-to-earn o'yin mexanikasiga asoslangan innovatsion loyiha.",
-        "Maqsad": "Bizning maqsadimiz P vs NP muammosini hal qilish va cheksiz hisoblash quvvatini taqdim etish."
+    // Sizning ma'lumotlaringiz
+    const userProfile = {
+        name: "Abubakir Abdug'aniyev Juraboyev Qobiljon o'g'li",
+        email: "abubakir.juraboyev@gmail.com"
     };
+    document.getElementById('userInfo').innerText = `${userProfile.name} | ${userProfile.email}`;
 
-    // 3. Limitsiz Chat funksiyasi
+    // Chat funksiyasi
     function handleInput(event) {
         if (event.key === 'Enter') {
-            const input = document.getElementById('userInput').value;
-            processQuery(input);
+            const input = document.getElementById('userInput');
+            const chatDisplay = document.getElementById('chatDisplay');
+            
+            // Foydalanuvchi xabari
+            chatDisplay.innerHTML += `<div class="message"><b>Siz:</b> ${input.value}</div>`;
+            
+            // GAB-X AI javobi (API o'rniga namuna)
+            chatDisplay.innerHTML += `<div class="message"><b>GAB-X AI:</b> Sizning GAB-X GLOBAL loyihangiz haqida ma'lumot qidiryapman... (Limitsiz rejim faol).</div>`;
+            
+            input.value = '';
+            chatDisplay.scrollTop = chatDisplay.scrollHeight;
         }
-    }
-
-    function processQuery(query) {
-        // Bu yerda Gemini va OpenAI API routeri ishlaydi
-        let response = gabxKnowledge[query] || "GAB-X AI: Men bu savolga javob berish uchun GAB-X serverlariga ulandim. (API javobi bu yerda ko'rinadi)";
-        alert(response); 
     }
 </script>
 </body>
